@@ -86,6 +86,10 @@ export function CiapPageClient() {
     const { copiedCode, copy } = useCopy();
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Evita crash/timeout de SSR (Server-Side Rendering) no Vercel com 745 nós
+    const [mounted, setMounted] = useState(false);
+    React.useEffect(() => { setMounted(true); }, []);
+
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
         return ALL_CIAP2.filter(e => {
@@ -177,7 +181,7 @@ export function CiapPageClient() {
                 </div>
 
                 {/* Table */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden">
+                <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-3xl shadow-sm overflow-hidden min-h-[400px]">
                     {/* col headers */}
                     <div className="flex items-center gap-3 px-4 py-2.5 border-b border-slate-100 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-800/30">
                         <span className="w-14 shrink-0 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">CIAP</span>
@@ -188,7 +192,11 @@ export function CiapPageClient() {
                     </div>
 
                     {/* rows */}
-                    {filtered.length === 0 ? (
+                    {!mounted ? (
+                        <div className="flex items-center justify-center py-32 text-slate-400 text-sm font-semibold">
+                            Carregando {ALL_CIAP2.length} códigos CIAP-2...
+                        </div>
+                    ) : filtered.length === 0 ? (
                         <div className="py-20 text-center">
                             <p className="text-2xl mb-2">🔍</p>
                             <p className="font-bold text-slate-700 dark:text-slate-300">Nenhum código encontrado</p>

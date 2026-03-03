@@ -133,7 +133,7 @@ export async function handleChip(chip: string): Promise<AssistantMessage> {
     };
 }
 
-// ── Resposta principal do assistente ─────────────────────────
+// ── Resposta principal do assistente (DeepSeek) ─────────────────
 export async function getAssistantResponse(
     userMessage: string,
     demoMode = false
@@ -149,7 +149,7 @@ export async function getAssistantResponse(
         };
     }
 
-    // --- Camada B: dados da conta ---
+    // --- Camada B: dados da conta interceptados diretamente ---
     if (intent === 'pending') {
         return { role: 'assistant', content: formatPending(), timestamp: new Date() };
     }
@@ -166,25 +166,75 @@ export async function getAssistantResponse(
         }
     }
 
-    // --- Camada A: conteúdo do guia ---
+    // --- Camada C: Busca RAG + Integração DeepSeek via API ---
+    // Primeiro tentamos achar protocolos no guia para o assunto
     const results = searchContent(userMessage, 3);
+    const sources = formatGuideResult(results);
 
-    if (results.length === 0) {
-        const suggestions = suggestTerms(userMessage);
-        const hint = suggestions.length > 0
-            ? `\n\nTente buscar por: ${suggestions.map(t => `_${t}_`).join(', ')}`
-            : '';
+    // Formatando o contexto a ser enviado para a LLM
+    const c = await fetchRealCounts();
+    let currentContext = 'Informações da unidade não disponíveis no momento.';
+    if (c) {
+        currentContext = `Resumo atual da unidade do profissional: Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}. Use essa informação se ele perguntar como está o posto hoje.`;
+    }
+
+    if (results.length > 0) {
+        currentContext += `\n\nProtocolos relevantes encontrados no guia:\n${results.map(r => `[Título: ${r.protocol.title}]\n${r.snippet}`).join('\n\n')}`;
+    }
+
+    try {
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                messages: [{ role: 'user', content: userMessage }],
+                contextData: currentContext
+            })
+        });
+
+        if (!response.ok) throw new Error('API Error');
+
+        // Simples leitura não-streamada para resposta rápida (o endpoint suporta streamText, 
+        // mas como já tínhamos um ChatDrawer por turnos, vamos ler todo o texto por aqui)
+        const textResponse = await response.text();
+
+        // extraindo texto puro do formato streamText da SDK AI ("0:Este é o texto")
+        const cleanContent = textResponse
+            .split('\n')
+            .filter(line => line.startsWith('0:'))
+            .map(line => line.substring(2))
+            .map(line => {
+                try { return JSON.parse(line); } catch { return line; }
+            })
+            .join('')
+            .replace(/\\n/g, '\n');
+
         return {
             role: 'assistant',
-            content: txt.assistant.notFound + hint,
+            content: cleanContent || buildGuideAnswer(results),
+            sources: sources?.length ? sources : undefined,
+            timestamp: new Date(),
+        };
+    } catch (e) {
+        console.error(e);
+        // Em caso de erro (offline/falha de API), faz o fallback clássico local
+        if (results.length === 0) {
+            const suggestions = suggestTerms(userMessage);
+            const hint = suggestions.length > 0
+                ? `\n\nTente buscar por: ${suggestions.map(t => `_${t}_`).join(', ')}`
+                : '';
+            return {
+                role: 'assistant',
+                content: txt.assistant.notFound + hint,
+                timestamp: new Date(),
+            };
+        }
+
+        return {
+            role: 'assistant',
+            content: buildGuideAnswer(results),
+            sources,
             timestamp: new Date(),
         };
     }
-
-    return {
-        role: 'assistant',
-        content: buildGuideAnswer(results),
-        sources: formatGuideResult(results),
-        timestamp: new Date(),
-    };
 }
