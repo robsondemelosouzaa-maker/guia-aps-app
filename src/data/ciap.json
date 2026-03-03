@@ -1,0 +1,207 @@
+[
+    {
+        "code": "A01",
+        "label": "Dor generalizada/múltipla",
+        "chapter": "A - Geral/Inespecífico"
+    },
+    {
+        "code": "A04",
+        "label": "Fraqueza/cansaço geral",
+        "chapter": "A - Geral/Inespecífico"
+    },
+    {
+        "code": "A09",
+        "label": "Problema de saúde/sintoma NE",
+        "chapter": "A - Geral/Inespecífico"
+    },
+    {
+        "code": "A97",
+        "label": "Nenhuma doença",
+        "chapter": "A - Geral/Inespecífico"
+    },
+    {
+        "code": "B02",
+        "label": "Linfonodo/glândula aumentada",
+        "chapter": "B - Sangue/Imunológico"
+    },
+    {
+        "code": "B80",
+        "label": "Lesão ferro/sangue",
+        "chapter": "B - Sangue/Imunológico"
+    },
+    {
+        "code": "D01",
+        "label": "Dor abdominal/cólica geral",
+        "chapter": "D - Digestivo"
+    },
+    {
+        "code": "D11",
+        "label": "Diarreia",
+        "chapter": "D - Digestivo"
+    },
+    {
+        "code": "D72",
+        "label": "Gastrite/duodenite",
+        "chapter": "D - Digestivo"
+    },
+    {
+        "code": "D84",
+        "label": "Esôfago/estômago NE",
+        "chapter": "D - Digestivo"
+    },
+    {
+        "code": "F01",
+        "label": "Dor nos olhos",
+        "chapter": "F - Olhos"
+    },
+    {
+        "code": "H01",
+        "label": "Dor de ouvido",
+        "chapter": "H - Ouvido"
+    },
+    {
+        "code": "H71",
+        "label": "Otite média aguda",
+        "chapter": "H - Ouvido"
+    },
+    {
+        "code": "K01",
+        "label": "Dor no coração",
+        "chapter": "K - Cardiovascular"
+    },
+    {
+        "code": "K74",
+        "label": "Angina pectoris",
+        "chapter": "K - Cardiovascular"
+    },
+    {
+        "code": "K86",
+        "label": "Hipertensão sem complicação",
+        "chapter": "K - Cardiovascular"
+    },
+    {
+        "code": "K87",
+        "label": "Hipertensão com complicação",
+        "chapter": "K - Cardiovascular"
+    },
+    {
+        "code": "L01",
+        "label": "Dor no pescoço",
+        "chapter": "L - Musculoesquelético"
+    },
+    {
+        "code": "L02",
+        "label": "Dor nas costas",
+        "chapter": "L - Musculoesquelético"
+    },
+    {
+        "code": "N01",
+        "label": "Dor de cabeça",
+        "chapter": "N - Neurológico"
+    },
+    {
+        "code": "N17",
+        "label": "Desmaio/perda de consciência",
+        "chapter": "N - Neurológico"
+    },
+    {
+        "code": "N89",
+        "label": "Enxaqueca",
+        "chapter": "N - Neurológico"
+    },
+    {
+        "code": "P01",
+        "label": "Ansiedade/tensão",
+        "chapter": "P - Psicológico"
+    },
+    {
+        "code": "P76",
+        "label": "Depressão",
+        "chapter": "P - Psicológico"
+    },
+    {
+        "code": "R74",
+        "label": "Infecção respiratória aguda",
+        "chapter": "R - Respiratório"
+    },
+    {
+        "code": "R78",
+        "label": "Bronquite aguda/bronquiolite",
+        "chapter": "R - Respiratório"
+    },
+    {
+        "code": "R80",
+        "label": "Gripe",
+        "chapter": "R - Respiratório"
+    },
+    {
+        "code": "R96",
+        "label": "Asma",
+        "chapter": "R - Respiratório"
+    },
+    {
+        "code": "S01",
+        "label": "Dor na pele",
+        "chapter": "S - Pele"
+    },
+    {
+        "code": "S10",
+        "label": "Furúnculo/carbúnculo",
+        "chapter": "S - Pele"
+    },
+    {
+        "code": "T78",
+        "label": "Sobrepeso/obesidade",
+        "chapter": "T - Endócrino/Metabólico"
+    },
+    {
+        "code": "T89",
+        "label": "Diabetes insulino-dependente",
+        "chapter": "T - Endócrino/Metabólico"
+    },
+    {
+        "code": "T90",
+        "label": "Diabetes tipo 2",
+        "chapter": "T - Endócrino/Metabólico"
+    },
+    {
+        "code": "U70",
+        "label": "Pielonefrite/infecção urinária",
+        "chapter": "U - Urinário"
+    },
+    {
+        "code": "W78",
+        "label": "Gravidez",
+        "chapter": "W - Gravidez/Parto"
+    },
+    {
+        "code": "W82",
+        "label": "Abortamento espontâneo",
+        "chapter": "W - Gravidez/Parto"
+    },
+    {
+        "code": "X01",
+        "label": "Dor genital feminina",
+        "chapter": "X - Gênitais Femininos"
+    },
+    {
+        "code": "X73",
+        "label": "Candidíase vaginal",
+        "chapter": "X - Gênitais Femininos"
+    },
+    {
+        "code": "Y86",
+        "label": "Hipertrofia de próstata",
+        "chapter": "Y - Gênitais Masculinos"
+    },
+    {
+        "code": "Z01",
+        "label": "Pobreza/problema econ.",
+        "chapter": "Z - Social"
+    },
+    {
+        "code": "Z25",
+        "label": "Problemas familiares NE",
+        "chapter": "Z - Social"
+    }
+]

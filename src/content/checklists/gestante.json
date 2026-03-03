@@ -1,0 +1,218 @@
+[
+    {
+        "key": "mes_1",
+        "label": "Mês 1 (até 13 semanas)",
+        "items": [
+            {
+                "key": "consulta_1",
+                "label": "1ª Consulta de pré-natal"
+            },
+            {
+                "key": "tipagem_rh",
+                "label": "Tipagem sanguínea e Rh"
+            },
+            {
+                "key": "hemograma",
+                "label": "Hemograma completo"
+            },
+            {
+                "key": "glicemia_jejum",
+                "label": "Glicemia em jejum"
+            },
+            {
+                "key": "urina_1",
+                "label": "EAS (Exame de urina)"
+            },
+            {
+                "key": "toxo_igm",
+                "label": "Toxoplasmose IgM e IgG"
+            },
+            {
+                "key": "rubela",
+                "label": "Rubéola IgG"
+            },
+            {
+                "key": "hbsag",
+                "label": "HBsAg (Hepatite B)"
+            },
+            {
+                "key": "vdrl",
+                "label": "VDRL (Sífilis)"
+            },
+            {
+                "key": "hiv",
+                "label": "HIV (Anti-HIV)"
+            },
+            {
+                "key": "hcv",
+                "label": "Hepatite C (Anti-HCV)"
+            },
+            {
+                "key": "papanicolau",
+                "label": "Colpocitologia (Papanicolau)"
+            },
+            {
+                "key": "us_1trim",
+                "label": "Ultrassom 1º trimestre (11–14 semanas)"
+            },
+            {
+                "key": "acido_folico",
+                "label": "Ácido fólico prescrito"
+            },
+            {
+                "key": "sulfato_ferroso",
+                "label": "Sulfato ferroso prescrito"
+            }
+        ]
+    },
+    {
+        "key": "mes_2_3",
+        "label": "Mês 2–3 (14–20 semanas)",
+        "items": [
+            {
+                "key": "consulta_2",
+                "label": "2ª Consulta de pré-natal"
+            },
+            {
+                "key": "ausculta_bcf",
+                "label": "Ausculta BCF (Sonar Doppler)"
+            },
+            {
+                "key": "altura_uterina",
+                "label": "Medida de altura uterina"
+            },
+            {
+                "key": "peso_pa",
+                "label": "Peso e PA aferidos"
+            },
+            {
+                "key": "reavaliar_exames",
+                "label": "Revisar resultados de exames do 1º mês"
+            },
+            {
+                "key": "orientacao_dieta",
+                "label": "Orientação alimentar"
+            },
+            {
+                "key": "vacinacao_tetano",
+                "label": "Verificar cartão de vacinação (Tétano)"
+            }
+        ]
+    },
+    {
+        "key": "mes_4_5",
+        "label": "Mês 4–5 (20–24 semanas)",
+        "items": [
+            {
+                "key": "consulta_3",
+                "label": "3ª Consulta de pré-natal"
+            },
+            {
+                "key": "us_morfologico",
+                "label": "Ultrassom morfológico (20–24 sem)"
+            },
+            {
+                "key": "glicemia_75g",
+                "label": "TOTG 75g (Diabetes gestacional)"
+            },
+            {
+                "key": "hemograma_2",
+                "label": "Hemograma (repetição)"
+            },
+            {
+                "key": "urina_2",
+                "label": "EAS repetição"
+            },
+            {
+                "key": "toxo_2",
+                "label": "Toxoplasmose (repetir se negativa)"
+            },
+            {
+                "key": "vdrl_2",
+                "label": "VDRL repetição"
+            },
+            {
+                "key": "orientacao_amamentacao",
+                "label": "Orientação sobre amamentação"
+            }
+        ]
+    },
+    {
+        "key": "mes_6_7",
+        "label": "Mês 6–7 (24–32 semanas)",
+        "items": [
+            {
+                "key": "consulta_4",
+                "label": "4ª Consulta de pré-natal"
+            },
+            {
+                "key": "pa_edema",
+                "label": "Verificar PA e edema (MMII)"
+            },
+            {
+                "key": "altura_uterina_2",
+                "label": "Altura uterina + Ganho de peso"
+            },
+            {
+                "key": "strep_b",
+                "label": "Estreptococo B (se de risco)"
+            },
+            {
+                "key": "vaccina_flu",
+                "label": "Vacina Influenza (se não tomou)"
+            },
+            {
+                "key": "vaccina_covid",
+                "label": "Vacina COVID (atualizada)"
+            }
+        ]
+    },
+    {
+        "key": "mes_8",
+        "label": "Mês 8 (33–36 semanas)",
+        "items": [
+            {
+                "key": "consulta_5",
+                "label": "5ª Consulta de pré-natal"
+            },
+            {
+                "key": "us_3trim",
+                "label": "Ultrassom 3º trimestre"
+            },
+            {
+                "key": "plano_parto",
+                "label": "Discutir plano de parto"
+            },
+            {
+                "key": "sinais_trabalho_parto",
+                "label": "Orientar sinais de trabalho de parto"
+            },
+            {
+                "key": "cadastro_maternidade",
+                "label": "Indicar maternidade de referência"
+            }
+        ]
+    },
+    {
+        "key": "mes_9",
+        "label": "Mês 9 (37–40+ semanas)",
+        "items": [
+            {
+                "key": "consulta_6",
+                "label": "6ª Consulta de pré-natal"
+            },
+            {
+                "key": "sinais_alerta_final",
+                "label": "Reforçar sinais de alerta"
+            },
+            {
+                "key": "check_exames_finais",
+                "label": "Revisar exames (GBS, coagulação)"
+            },
+            {
+                "key": "retorno_puerperio",
+                "label": "Agendar consulta puerpério (42 dias)"
+            }
+        ]
+    }
+]

@@ -1,0 +1,197 @@
+[
+    {
+        "slug": "crianca",
+        "title": "Puericultura (CD)",
+        "subtitle": "Crescimento e desenvolvimento infantil",
+        "accentColor": "#A7D8FF",
+        "accentClass": "bg-cd-blue",
+        "icon": "Baby",
+        "pendingCount": 4,
+        "protocols": [
+            {
+                "id": "p1",
+                "title": "Consulta de Puericultura 0–2 anos",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "p2",
+                "title": "Tabela de Desenvolvimento (DNPM)",
+                "type": "Instrumento",
+                "version": "2023"
+            },
+            {
+                "id": "p3",
+                "title": "Calendário Vacinal Nacional",
+                "type": "Referência",
+                "version": "2024"
+            }
+        ],
+        "patients": [
+            {
+                "id": "pt1",
+                "name": "Lucas Ferreira",
+                "age": "8 meses",
+                "status": "Pendente",
+                "info": "Vacinas em atraso"
+            },
+            {
+                "id": "pt2",
+                "name": "Sophia Alves",
+                "age": "14 meses",
+                "status": "Em dia",
+                "info": "Consulta de rotina"
+            },
+            {
+                "id": "pt3",
+                "name": "Enzo Barbosa",
+                "age": "2 anos",
+                "status": "Alto risco",
+                "info": "Curva ponderal abaixo P3"
+            },
+            {
+                "id": "pt4",
+                "name": "Beatriz Costa",
+                "age": "6 meses",
+                "status": "Pendente",
+                "info": "Triagem auditiva pendente"
+            }
+        ]
+    },
+    {
+        "slug": "mulher",
+        "title": "Saúde da Mulher",
+        "subtitle": "Prevenção, rastreamento e cuidado integral",
+        "accentColor": "#FFE7A3",
+        "accentClass": "bg-saudeMulher",
+        "icon": "Heart",
+        "pendingCount": 12,
+        "protocols": [
+            {
+                "id": "m1",
+                "title": "Rastreamento Câncer de Colo (Papanicolau)",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "m2",
+                "title": "Rastreamento Câncer de Mama (Mamografia)",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "m3",
+                "title": "Planejamento Familiar",
+                "type": "Guia",
+                "version": "2023"
+            }
+        ],
+        "patients": [
+            {
+                "id": "pm1",
+                "name": "Carla Lima",
+                "age": "35 anos",
+                "status": "Pendente",
+                "info": "Papanicolau atrasado 2 anos"
+            },
+            {
+                "id": "pm2",
+                "name": "Fernanda Mota",
+                "age": "49 anos",
+                "status": "Pendente",
+                "info": "Mamografia solicitada"
+            }
+        ]
+    },
+    {
+        "slug": "gestante",
+        "title": "Gestante",
+        "subtitle": "Pré-natal de baixo e alto risco",
+        "accentColor": "#FFB1CC",
+        "accentClass": "bg-gestante",
+        "icon": "Activity",
+        "pendingCount": 8,
+        "protocols": [
+            {
+                "id": "g1",
+                "title": "Pré-natal de Baixo Risco (MS)",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "g2",
+                "title": "Estratificação de Risco na Gestação",
+                "type": "Instrumento",
+                "version": "2024"
+            }
+        ],
+        "patients": [
+            {
+                "id": "pg1",
+                "name": "Maria Oliveira",
+                "age": "28 anos",
+                "status": "Em dia",
+                "info": "32ª semana • Próxima consulta 15/03"
+            },
+            {
+                "id": "pg2",
+                "name": "Ana Souza",
+                "age": "22 anos",
+                "status": "Alto risco",
+                "info": "14ª semana • PA elevada"
+            }
+        ]
+    },
+    {
+        "slug": "cronicos",
+        "title": "Crônicos (HAS/DM)",
+        "subtitle": "Hipertensos, diabéticos e saúde cardiovascular",
+        "accentColor": "#BFEFD0",
+        "accentClass": "bg-hipertenso",
+        "icon": "Heart",
+        "pendingCount": 15,
+        "protocols": [
+            {
+                "id": "c1",
+                "title": "Linha de Cuidado Hipertensão Arterial",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "c2",
+                "title": "Linha de Cuidado Diabetes Mellitus (Tipo 2)",
+                "type": "Protocolo",
+                "version": "2024"
+            },
+            {
+                "id": "c3",
+                "title": "Estratificação de Risco Cardiovascular",
+                "type": "Instrumento",
+                "version": "2023"
+            }
+        ],
+        "patients": [
+            {
+                "id": "pc1",
+                "name": "João da Silva",
+                "age": "65 anos",
+                "status": "Critico",
+                "info": "HAS • CD atrasada • PA 165/100"
+            },
+            {
+                "id": "pc2",
+                "name": "Ricardo Santos",
+                "age": "58 anos",
+                "status": "Pendente",
+                "info": "DM2 • Renovação de receita"
+            },
+            {
+                "id": "pc3",
+                "name": "Elza Pereira",
+                "age": "72 anos",
+                "status": "Em dia",
+                "info": "HAS+DM2 • Consulta semestral"
+            }
+        ]
+    }
+]

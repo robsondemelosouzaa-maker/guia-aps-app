@@ -1,0 +1,190 @@
+[
+    {
+        "id": "has-protocolo",
+        "title": "Linha de Cuidado: Hipertensão Arterial Sistêmica (HAS)",
+        "module": "cronicos",
+        "tags": [
+            "hipertensão",
+            "HAS",
+            "pressão arterial",
+            "cardiovascular",
+            "crônicos",
+            "PA",
+            "anti-hipertensivos"
+        ],
+        "ciapCodes": [
+            "K86",
+            "K87"
+        ],
+        "source": "Cadernos de Atenção Básica nº 37 – Hipertensão Arterial Sistêmica",
+        "sourceFull": "Ministério da Saúde. Cadernos de Atenção Básica, n. 37. Brasília, DF: 2022.",
+        "version": "2022",
+        "updatedAt": "2022-01-01",
+        "summary": "A HAS é um importante fator de risco cardiovascular. O diagnóstico é feito com PA ≥ 140/90 mmHg em pelo menos 2 medidas em ocasiões distintas. O manejo envolve mudança do estilo de vida e, quando indicado, terapia medicamentosa.",
+        "body": "A Hipertensão Arterial Sistêmica (HAS) afeta cerca de 36% dos adultos brasileiros. Na Atenção Primária, o enfermeiro tem papel central na detecção, acompanhamento e educação do paciente hipertenso.\n\n**Fluxo de rastreamento:**\n1. Medir PA em toda consulta de adultos ≥ 18 anos.\n2. Se PA ≥ 140/90 em consulta de enfermagem → registrar e acionar médico da equipe.\n3. Se PA entre 121–139/81–89 → monitorar e reforçar mudanças de estilo de vida.\n\n**Estratificação de risco:**\n- **Habitual:** PA controlada, sem complicações, retorno a cada 3–6 meses.\n- **Alto risco:** PA descontrolada, DM associado, lesão de órgão-alvo → retorno mensal.\n\n**Ações do enfermeiro:**\n- Consulta de enfermagem sistematizada.\n- Verificação da PA com técnica padronizada (AMPA/MAPA, quando indicado).\n- Revisão da adesão ao tratamento (medicamentoso e não medicamentoso).\n- Orientação nutricional: redução do sódio (< 5g/dia), DASH diet.\n- Estímulo à atividade física regular.\n- Registro na ficha de acompanhamento de crônicos (SIAB/e-SUS).",
+        "checklist": [
+            "Aferir PA com técnica correta (posição, manguito, repouso prévio)",
+            "Verificar peso e IMC",
+            "Revisar medicação e adesão",
+            "Avaliar sintomas: cefaleia, visão turva, edema",
+            "Orientar dieta hipossódica e prática de exercícios",
+            "Agendar retorno conforme risco"
+        ]
+    },
+    {
+        "id": "dm2-protocolo",
+        "title": "Linha de Cuidado: Diabetes Mellitus Tipo 2 (DM2)",
+        "module": "cronicos",
+        "tags": [
+            "diabetes",
+            "DM2",
+            "glicemia",
+            "hemoglobina glicada",
+            "HbA1c",
+            "crônicos",
+            "metformina"
+        ],
+        "ciapCodes": [
+            "T90",
+            "T89"
+        ],
+        "source": "Cadernos de Atenção Básica nº 36 – Diabetes Mellitus",
+        "sourceFull": "Ministério da Saúde. Cadernos de Atenção Básica, n. 36. Brasília, DF: 2022.",
+        "version": "2022",
+        "updatedAt": "2022-01-01",
+        "summary": "DM2 é caracterizada por hiperglicemia resultante de defeitos na secreção e/ou ação da insulina. O acompanhamento inclui monitoramento de glicemia, HbA1c semestral/anual, e avaliação de complicações (pé diabético, nefropatia, retinopatia).",
+        "body": "O Diabetes Mellitus Tipo 2 (DM2) é uma das principais condições crônicas atendidas na APS. O diagnóstico é feito com glicemia de jejum ≥ 126 mg/dL em 2 ocasiões, ou HbA1c ≥ 6,5%.\n\n**Consulta de enfermagem em DM2:**\nAvaliação do peso, IMC, pressão arterial, inspeção dos pés (pé diabético), revisão da automonitorização, orientação nutricional e educação em saúde.\n\n**Rastreamento de complicações:**\n- **Pé diabético:** inspeção completa em toda consulta; monofilamento 10g anualmente.\n- **Nefropatia:** solicitar creatinina e relação albumina/creatinina anualmente.\n- **Retinopatia:** encaminhar para oftalmologista anualmente.\n\n**Metas de controle (gerais):**\n- HbA1c < 7% para maioria dos adultos.\n- Glicemia em jejum: 80–130 mg/dL.\n- PA < 130/80 mmHg (DM + hipertensão).",
+        "checklist": [
+            "Aferir peso, PA, circunferência abdominal",
+            "Verificar glicemia capilar (se disponível)",
+            "Inspecionar pés (inspeção, sensibilidade, pulsos)",
+            "Checar data do último HbA1c",
+            "Revisar medicação e adesão",
+            "Orientar automonitorização domiciliar",
+            "Agendar retorno a cada 3 meses (mínimo)"
+        ]
+    },
+    {
+        "id": "prenatal-protocolo",
+        "title": "Pré-natal de Baixo Risco na APS",
+        "module": "gestante",
+        "tags": [
+            "pré-natal",
+            "gestante",
+            "gravidez",
+            "prenatal",
+            "IG",
+            "semana gestacional",
+            "consultas",
+            "risco habitual"
+        ],
+        "ciapCodes": [
+            "W78"
+        ],
+        "source": "Manual de Atenção ao Pré-Natal de Baixo Risco (MS, 2023)",
+        "sourceFull": "Ministério da Saúde. Atenção ao Pré-Natal de Baixo Risco. Brasília, DF: 2023.",
+        "version": "2023",
+        "updatedAt": "2023-06-01",
+        "summary": "O pré-natal de baixo risco pode ser realizado pelo enfermeiro na APS. Prevê mínimo de 6 consultas (preferencialmente 8) distribuídas ao longo da gestação. O enfermeiro realiza consultas intercaladas com o médico.",
+        "body": "A consulta de enfermagem no pré-natal é prevista em lei (Lei 7.498/1986 e Resolução COFEN 736/2024). O enfermeiro realiza consultas, solicita exames de rotina e refer encaminha quando identifica risco.\n\n**Número mínimo de consultas:**\n- Até 28 semanas: mensais\n- De 28 a 36 semanas: quinzenais\n- A partir de 36 semanas: semanais\n\n**Ações por consulta:**\n1. Verificar pressão arterial e peso\n2. Medir altura uterina\n3. Verificar batimentos cardíacos fetais (BCF)\n4. Avaliar edema\n5. Solicitar/revisar exames de rotina\n6. Orientar sinais de alerta\n\n**Sinais de alerta (encaminhar imediatamente):**\n- PA ≥ 140/90 mmHg\n- Cefaleia intensa, visão turva, epigastralgia\n- Ausência de movimentos fetais\n- Sangramento vaginal\n- Febre",
+        "checklist": [
+            "Verificar cartão da gestante e atualizar",
+            "Aferir peso e PA",
+            "Medir altura uterina (após 20ª semana)",
+            "Auscultar BCF (sonar Doppler)",
+            "Avaliar edema MMII",
+            "Revisar exames (hemograma, VDRL, HIV, urina, glicemia, toxo, rubéola)",
+            "Orientar sinais de alarme",
+            "Registrar no SISPRENATAL / e-SUS"
+        ]
+    },
+    {
+        "id": "puericultura-protocolo",
+        "title": "Consulta de Puericultura (0–2 anos)",
+        "module": "crianca",
+        "tags": [
+            "puericultura",
+            "criança",
+            "crescimento",
+            "desenvolvimento",
+            "DNPM",
+            "vacinação",
+            "aleitamento",
+            "CD"
+        ],
+        "ciapCodes": [
+            "A98",
+            "B75"
+        ],
+        "source": "Cadernos de Atenção Básica nº 33 – Saúde da Criança",
+        "sourceFull": "Ministério da Saúde. Saúde da Criança: Crescimento e Desenvolvimento. Brasília, DF: 2023.",
+        "version": "2023",
+        "updatedAt": "2023-01-01",
+        "summary": "A consulta de puericultura acompanha o crescimento e desenvolvimento infantil, com avaliação antropométrica, marcos do DNPM, vacinação e aleitamento materno. O enfermeiro pode conduzir este acompanhamento integralmente.",
+        "body": "A puericultura é o acompanhamento sistemático da saúde da criança. O enfermeiro realiza as consultas de acordo com a caderneta da criança, avaliando crescimento e desenvolvimento.\n\n**Frequência recomendada:**\n- 7 dias após alta hospitalar\n- 1 mês, 2 meses, 4 meses, 6 meses, 9 meses, 12 meses, 18 meses, 24 meses\n\n**Avaliação do crescimento:**\n- Peso para idade (P/I)\n- Comprimento/altura para idade (C/I ou E/I)\n- Peso para comprimento (P/C) ou IMC para idade\n- Plotar nas curvas da OMS (Caderneta da Criança)\n\n**Marcos do DNPM (exemplos):**\n- 2 meses: sorriso social, segue objetos com o olhar\n- 4 meses: sustento da cabeça, vocaliza\n- 6 meses: senta com apoio, transfere objetos\n- 12 meses: anda com apoio, diz 1–2 palavras\n- 24 meses: corre, organiza frases de 2 palavras",
+        "checklist": [
+            "Verificar Caderneta da Criança",
+            "Pesar e medir (comprimento/altura, circunferência cefálica < 2 anos)",
+            "Plotar nas curvas de crescimento",
+            "Avaliar marcos do DNPM para a faixa etária",
+            "Verificar calendário vacinal",
+            "Avaliar amamentação / alimentação complementar",
+            "Triagem neonatal (teste do olhinho, ouvido, pezinho — se ainda não feito)",
+            "Orientar família e marcar próxima consulta"
+        ]
+    },
+    {
+        "id": "papanicolau-protocolo",
+        "title": "Rastreamento do Câncer do Colo do Útero (Papanicolau)",
+        "module": "mulher",
+        "tags": [
+            "papanicolau",
+            "colo do útero",
+            "cervical",
+            "prevenção",
+            "câncer",
+            "colpocitologia",
+            "mulher",
+            "PCCU"
+        ],
+        "ciapCodes": [
+            "X75"
+        ],
+        "source": "Diretrizes para o Rastreamento do Câncer do Colo do Útero (INCA/MS, 2023)",
+        "sourceFull": "INCA / Ministério da Saúde. Diretrizes Brasileiras para o Rastreamento do Câncer do Colo do Útero. Rio de Janeiro, 2023.",
+        "version": "2023",
+        "updatedAt": "2023-03-01",
+        "summary": "O rastreamento é indicado para mulheres de 25 a 64 anos com vida sexual ativa. A coleta é trienal após dois resultados normais com intervalo de 1 ano. O enfermeiro devidamente capacitado realiza a coleta e registra no sistema.",
+        "body": "A coleta do exame é realizada com espátula de Ayre e escova endocervical (ou escova única). O material é fixado em lâmina ou enviado para citologia em meio líquido.\n\n**Periodicidade:**\n- Início: a partir dos 25 anos (mulheres com vida sexual)\n- Dois exames anuais consecutivos negativos → rastreamento a cada 3 anos\n- Continuar até os 64 anos\n- Mulheres acima de 64 anos sem exame nos últimos 5 anos: realizar dois exames com 1 ano de intervalo\n\n**Contraindicações para coleta no dia:**\n- Menstruação ativa\n- Relação sexual nas últimas 48h\n- Uso de creme/óvulo vaginal nas últimas 48h\n- Ducha vaginal recente\n\n**Resultados e conduta:**\n- Normal → rastreamento de rotina\n- ASC-US / LSIL → repetir em 6–12 meses ou encaminhar conforme protocolo local\n- HSIL / ASC-H → encaminhar para colposcopia",
+        "checklist": [
+            "Confirmar identidade e conferir data do último Papanicolau",
+            "Checar contraindicações do dia",
+            "Explicar o procedimento à paciente",
+            "Coletar com espátula e escova",
+            "Fixar lâmina ou acondicionar meio líquido",
+            "Registrar no sistema (Siscan / e-SUS)",
+            "Orientar prazo de resultado e retorno"
+        ]
+    },
+    {
+        "id": "ciap2-guia",
+        "title": "Guia de Uso da CIAP-2 na APS",
+        "module": null,
+        "tags": [
+            "CIAP-2",
+            "classificação",
+            "codificação",
+            "prontuário",
+            "registro",
+            "diagnóstico"
+        ],
+        "ciapCodes": [],
+        "source": "WONCA International Classification Committee. CIAP-2 – Classificação Internacional de Atenção Primária, 2ª ed.",
+        "sourceFull": "WONCA / SBMFC. CIAP-2 — Classificação Internacional de Atenção Primária. 2ª ed. São Paulo, 2009.",
+        "version": "2009",
+        "updatedAt": "2023-01-01",
+        "summary": "A CIAP-2 é a classificação internacional para a Atenção Primária, organizada em capítulos por sistemas orgânicos. Permite registrar motivo da consulta, problema de saúde e processo de cuidado.",
+        "body": "A Classificação Internacional de Atenção Primária (CIAP-2) é composta por 17 capítulos (A–Z) e 3 componentes principais:\n- **Componente 1:** Queixas e sintomas\n- **Componente 7:** Diagnósticos e doenças\n- **Componentes 2–6:** Processo de cuidado\n\n**Capítulos frequentes na APS:**\n- K: Cardiovascular (K86 = HAS)\n- T: Endócrino/Metabólico (T90 = DM2)\n- R: Respiratório (R74 = IRA, R80 = Gripe)\n- P: Psicológico (P76 = Depressão)\n- W: Gravidez (W78 = Gestação)\n- A: Geral/Inespecífico\n\n**Como usar no e-SUS:**\nO profissional registra o CIAP-2 no campo 'Problema/Condição Avaliada' do SOAP ou RACIPE.",
+        "checklist": []
+    }
+]

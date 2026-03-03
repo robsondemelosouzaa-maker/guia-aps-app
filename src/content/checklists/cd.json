@@ -1,0 +1,280 @@
+[
+    {
+        "key": "1a_semana",
+        "label": "1ª Semana de vida",
+        "items": [
+            {
+                "key": "alta_hospital",
+                "label": "Alta hospitalar com Caderneta da Criança"
+            },
+            {
+                "key": "teste_pezinho",
+                "label": "Teste do pezinho (3–5 dias)"
+            },
+            {
+                "key": "teste_olhinho",
+                "label": "Teste do olhinho (refluxo vermelho)"
+            },
+            {
+                "key": "teste_orelhinha",
+                "label": "Teste da orelhinha (TANU)"
+            },
+            {
+                "key": "aleitamento",
+                "label": "Orientar aleitamento materno exclusivo"
+            },
+            {
+                "key": "consulta_1a",
+                "label": "1ª Consulta de puericultura agendada"
+            }
+        ]
+    },
+    {
+        "key": "1o_mes",
+        "label": "1º Mês",
+        "items": [
+            {
+                "key": "peso_comprimento",
+                "label": "Peso e comprimento — plotar na curva"
+            },
+            {
+                "key": "cc_1m",
+                "label": "Circunferência cefálica"
+            },
+            {
+                "key": "vacina_hep_b_1m",
+                "label": "Hepatite B (2ª dose)"
+            },
+            {
+                "key": "dnpm_1m",
+                "label": "DNPM: sorriso social, segue luz com olhar"
+            },
+            {
+                "key": "orientar_pais_1m",
+                "label": "Orientar pais sobre sono, posição e banho"
+            }
+        ]
+    },
+    {
+        "key": "2o_mes",
+        "label": "2º Mês",
+        "items": [
+            {
+                "key": "peso_2m",
+                "label": "Peso e comprimento — curva de crescimento"
+            },
+            {
+                "key": "vacina_penta_1",
+                "label": "Pentavalente (1ª dose)"
+            },
+            {
+                "key": "vacina_vip_1",
+                "label": "VIP – Poliomielite inativada (1ª dose)"
+            },
+            {
+                "key": "vacina_pneumo_1",
+                "label": "Pneumocócica 10V (1ª dose)"
+            },
+            {
+                "key": "vacina_rota_1",
+                "label": "Rotavírus (1ª dose)"
+            },
+            {
+                "key": "dnpm_2m",
+                "label": "DNPM: vocaliza, sustenta a cabeça breve"
+            }
+        ]
+    },
+    {
+        "key": "4o_mes",
+        "label": "4º Mês",
+        "items": [
+            {
+                "key": "peso_4m",
+                "label": "Peso e comprimento"
+            },
+            {
+                "key": "vacina_penta_2",
+                "label": "Pentavalente (2ª dose)"
+            },
+            {
+                "key": "vacina_vip_2",
+                "label": "VIP (2ª dose)"
+            },
+            {
+                "key": "vacina_pneumo_2",
+                "label": "Pneumocócica 10V (2ª dose)"
+            },
+            {
+                "key": "vacina_rota_2",
+                "label": "Rotavírus (2ª dose)"
+            },
+            {
+                "key": "dnpm_4m",
+                "label": "DNPM: sustenta cabeça, sorri, transfere objetos"
+            }
+        ]
+    },
+    {
+        "key": "6o_mes",
+        "label": "6º Mês",
+        "items": [
+            {
+                "key": "peso_6m",
+                "label": "Peso e comprimento"
+            },
+            {
+                "key": "vacina_penta_3",
+                "label": "Pentavalente (3ª dose)"
+            },
+            {
+                "key": "vacina_vip_3",
+                "label": "VIP (3ª dose)"
+            },
+            {
+                "key": "vacina_pneumo_3",
+                "label": "Pneumocócica 10V (3ª dose)"
+            },
+            {
+                "key": "vacina_influenza",
+                "label": "Influenza (1ª dose semestral)"
+            },
+            {
+                "key": "alimentacao_comp",
+                "label": "Orientar alimentação complementar"
+            },
+            {
+                "key": "dnpm_6m",
+                "label": "DNPM: senta com apoio, balbúrdia"
+            }
+        ]
+    },
+    {
+        "key": "9o_mes",
+        "label": "9º Mês",
+        "items": [
+            {
+                "key": "peso_9m",
+                "label": "Peso e comprimento"
+            },
+            {
+                "key": "vacina_meningo_c",
+                "label": "Meningocócica C (1ª dose se não tomou)"
+            },
+            {
+                "key": "dnpm_9m",
+                "label": "DNPM: fica em pé com apoio, joga objeto"
+            }
+        ]
+    },
+    {
+        "key": "12o_mes",
+        "label": "12º Mês",
+        "items": [
+            {
+                "key": "peso_12m",
+                "label": "Peso e altura"
+            },
+            {
+                "key": "vacina_triplice_viral",
+                "label": "Tríplice viral (1ª dose)"
+            },
+            {
+                "key": "vacina_hepata",
+                "label": "Hepatite A (1ª dose)"
+            },
+            {
+                "key": "vacina_pneumo_reforco",
+                "label": "Pneumocócica 10V (1º reforço)"
+            },
+            {
+                "key": "vacina_meningo_reforco",
+                "label": "Meningocócica C (reforço)"
+            },
+            {
+                "key": "dnpm_12m",
+                "label": "DNPM: anda com apoio, diz 2 palavras"
+            }
+        ]
+    },
+    {
+        "key": "15o_mes",
+        "label": "15º Mês",
+        "items": [
+            {
+                "key": "vacina_dtp_reforco1",
+                "label": "DTP (1º reforço)"
+            },
+            {
+                "key": "vacina_vip_reforco1",
+                "label": "VIP (1º reforço)"
+            },
+            {
+                "key": "vacina_varicela",
+                "label": "Varicela (1ª dose)"
+            },
+            {
+                "key": "dnpm_15m",
+                "label": "DNPM: anda sem apoio, bebe copo"
+            }
+        ]
+    },
+    {
+        "key": "18o_mes",
+        "label": "18º Mês",
+        "items": [
+            {
+                "key": "peso_18m",
+                "label": "Peso e altura"
+            },
+            {
+                "key": "vacina_triplice_viral_2",
+                "label": "Tríplice viral (2ª dose)"
+            },
+            {
+                "key": "dnpm_18m",
+                "label": "DNPM: fala 10 palavras, sobe escada"
+            }
+        ]
+    },
+    {
+        "key": "24o_mes",
+        "label": "24º Mês",
+        "items": [
+            {
+                "key": "peso_24m",
+                "label": "Peso e altura — plotar curva"
+            },
+            {
+                "key": "dnpm_24m",
+                "label": "DNPM: frases de 2 palavras, corre"
+            },
+            {
+                "key": "dentista",
+                "label": "Encaminhar para odontologia"
+            }
+        ]
+    },
+    {
+        "key": "2a6_anos",
+        "label": "2 a 6 anos (anual)",
+        "items": [
+            {
+                "key": "peso_anual",
+                "label": "Peso e altura anuais"
+            },
+            {
+                "key": "vacina_influenza_a",
+                "label": "Influenza anual"
+            },
+            {
+                "key": "exame_visual",
+                "label": "Triagem visual"
+            },
+            {
+                "key": "exame_auditivo",
+                "label": "Triagem auditiva (se suspeita)"
+            }
+        ]
+    }
+]
