@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { MODULES, type ModuleSlug } from '@/lib/db/schemaMap';
+import modulesData from '@/data/modules.json';
 
 // Service client — bypassa RLS
 function svc() {
@@ -23,6 +24,16 @@ export async function GET(
     const search = url.searchParams.get('search') ?? '';
     const risk = url.searchParams.get('risk_level') ?? '';
     const babyBorn = url.searchParams.get('babyBorn');
+
+    // ── FALLBACK LOCAL (Modo Demonstração) se não houver Supabase configurado ──
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        const mod = (modulesData as any[]).find(m => m.slug === moduleSlug);
+        let pts = mod?.patients || [];
+
+        if (search) pts = pts.filter((p: any) => p.name.toLowerCase().includes(search.toLowerCase()));
+
+        return NextResponse.json(pts);
+    }
 
     const supabase = svc();
     let query = supabase
@@ -62,6 +73,11 @@ export async function POST(
     if (!config) return NextResponse.json({ error: 'Módulo inválido' }, { status: 400 });
 
     const payload = await req.json();
+
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return NextResponse.json({ ...payload, id: 'virtual-' + Date.now() }, { status: 201 });
+    }
+
     const supabase = svc();
     const { data, error } = await supabase
         .from(config.tableName)

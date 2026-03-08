@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useMemo, useRef } from 'react';
 import AppShell from '@/components/AppShell';
-import { ALL_CIAP2, CIAP2_CHAPTERS } from '@/data/ciap';
+import { ALL_CIAP2, CIAP2_CHAPTERS } from '@/data/ciap/index';
 import type { CiapEntry } from '@/data/ciap';
 import { Search, Copy, Check, ChevronDown, X, Filter } from 'lucide-react';
 

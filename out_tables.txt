@@ -1,0 +1,3000 @@
+Response: {
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "title": "standard public schema",
+    "version": "14.1"
+  },
+  "host": "qedzzyzbaeuedvwuticd.supabase.co:443",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "produces": [
+    "application/json",
+    "application/vnd.pgrst.object+json;nulls=stripped",
+    "application/vnd.pgrst.object+json",
+    "text/csv"
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "produces": [
+          "application/openapi+json",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "OpenAPI description (this document)",
+        "tags": [
+          "Introspection"
+        ]
+      }
+    },
+    "/leads": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.leads.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.telefone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.origem"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.observacoes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.data_entrada"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.ultimo_contato"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/leads"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "summary": "touch schema cache",
+        "tags": [
+          "leads"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.leads"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "summary": "touch schema cache",
+        "tags": [
+          "leads"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.leads.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.telefone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.origem"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.observacoes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.data_entrada"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.ultimo_contato"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "touch schema cache",
+        "tags": [
+          "leads"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.leads.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.telefone"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.origem"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.observacoes"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.data_entrada"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.ultimo_contato"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.leads.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.leads"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "summary": "touch schema cache",
+        "tags": [
+          "leads"
+        ]
+      }
+    },
+    "/fluxo_caixa": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.valor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.data"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/fluxo_caixa"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "fluxo_caixa"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.fluxo_caixa"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "fluxo_caixa"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.valor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.data"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "fluxo_caixa"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.valor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.data"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.fluxo_caixa.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.fluxo_caixa"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "fluxo_caixa"
+        ]
+      }
+    },
+    "/companies": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.companies.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/companies"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "companies"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.companies"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "companies"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.companies.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "companies"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.companies.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.companies.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.companies"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "companies"
+        ]
+      }
+    },
+    "/profiles": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.profiles.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.role"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/profiles"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "profiles"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.profiles"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "profiles"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.profiles.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.role"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "profiles"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.profiles.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.role"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.profiles.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.profiles"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "profiles"
+        ]
+      }
+    },
+    "/produtos_cliente": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.preco"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/produtos_cliente"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "produtos_cliente"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.produtos_cliente"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "produtos_cliente"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.preco"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "produtos_cliente"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.preco"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos_cliente.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/body.produtos_cliente"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "produtos_cliente"
+        ]
+      }
+    },
+    "/ingest_logs": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.source"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.payload"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.error_message"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/ingest_logs"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "ingest_logs"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.ingest_logs"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "ingest_logs"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.source"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.payload"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.error_message"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "ingest_logs"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.source"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.payload"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.error_message"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.ingest_logs.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.ingest_logs"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "ingest_logs"
+        ]
+      }
+    },
+    "/pedidos_notas": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.titulo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.cor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.posicao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.updated_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/pedidos_notas"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "pedidos_notas"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.pedidos_notas"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "pedidos_notas"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.titulo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.cor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.posicao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.updated_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "pedidos_notas"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.titulo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.descricao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.cor"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.status"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.posicao"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.pedidos_notas.updated_at"
+          },
+          {
+            "$ref": "#/parameters/body.pedidos_notas"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "pedidos_notas"
+        ]
+      }
+    },
+    "/insumos": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.insumos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.quantidade_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.estoque_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.updated_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/insumos"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "insumos"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.insumos"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "insumos"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.insumos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.quantidade_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.estoque_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.updated_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "insumos"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.insumos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.quantidade_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.estoque_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.insumos.updated_at"
+          },
+          {
+            "$ref": "#/parameters/body.insumos"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "insumos"
+        ]
+      }
+    },
+    "/produtos": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.ativo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.lead_id"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/produtos"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "produtos"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.produtos"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "produtos"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.ativo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.lead_id"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "produtos"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.produtos.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.nome"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.categoria"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.unidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_atual"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.saldo_minimo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.ativo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.created_at"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.produtos.lead_id"
+          },
+          {
+            "$ref": "#/parameters/body.produtos"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "produtos"
+        ]
+      }
+    },
+    "/movimentacoes_estoque": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.produto_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.quantidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.motivo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.created_at"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/order"
+          },
+          {
+            "$ref": "#/parameters/range"
+          },
+          {
+            "$ref": "#/parameters/rangeUnit"
+          },
+          {
+            "$ref": "#/parameters/offset"
+          },
+          {
+            "$ref": "#/parameters/limit"
+          },
+          {
+            "$ref": "#/parameters/preferCount"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "items": {
+                "$ref": "#/definitions/movimentacoes_estoque"
+              },
+              "type": "array"
+            }
+          },
+          "206": {
+            "description": "Partial Content"
+          }
+        },
+        "tags": [
+          "movimentacoes_estoque"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/body.movimentacoes_estoque"
+          },
+          {
+            "$ref": "#/parameters/select"
+          },
+          {
+            "$ref": "#/parameters/preferPost"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "movimentacoes_estoque"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.produto_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.quantidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.motivo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.created_at"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "movimentacoes_estoque"
+        ]
+      },
+      "patch": {
+        "parameters": [
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.company_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.produto_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.tipo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.quantidade"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.motivo"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.lead_id"
+          },
+          {
+            "$ref": "#/parameters/rowFilter.movimentacoes_estoque.created_at"
+          },
+          {
+            "$ref": "#/parameters/body.movimentacoes_estoque"
+          },
+          {
+            "$ref": "#/parameters/preferReturn"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "tags": [
+          "movimentacoes_estoque"
+        ]
+      }
+    },
+    "/rpc/atualizar_saldo_produto": {
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "args",
+            "required": true,
+            "schema": {
+              "properties": {
+                "p_delta": {
+                  "format": "numeric",
+                  "type": "number"
+                },
+                "p_produto_id": {
+                  "format": "uuid",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "p_produto_id",
+                "p_delta"
+              ],
+              "type": "object"
+            }
+          },
+          {
+            "$ref": "#/parameters/preferParams"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) atualizar_saldo_produto"
+        ]
+      }
+    },
+    "/rpc/current_role": {
+      "get": {
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) current_role"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "args",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "$ref": "#/parameters/preferParams"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) current_role"
+        ]
+      }
+    },
+    "/rpc/current_company_id": {
+      "get": {
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) current_company_id"
+        ]
+      },
+      "post": {
+        "parameters": [
+          {
+            "in": "body",
+            "name": "args",
+            "required": true,
+            "schema": {
+              "type": "object"
+            }
+          },
+          {
+            "$ref": "#/parameters/preferParams"
+          }
+        ],
+        "produces": [
+          "application/json",
+          "application/vnd.pgrst.object+json;nulls=stripped",
+          "application/vnd.pgrst.object+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "(rpc) current_company_id"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "leads": {
+      "description": "touch schema cache",
+      "required": [
+        "id",
+        "company_id",
+        "nome",
+        "telefone",
+        "origem",
+        "observacoes",
+        "data_entrada",
+        "status",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "telefone": {
+          "format": "text",
+          "type": "string"
+        },
+        "origem": {
+          "format": "text",
+          "type": "string"
+        },
+        "observacoes": {
+          "format": "text",
+          "type": "string"
+        },
+        "data_entrada": {
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "ultimo_contato": {
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "status": {
+          "default": "novo",
+          "format": "text",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "fluxo_caixa": {
+      "required": [
+        "id",
+        "company_id",
+        "tipo",
+        "valor",
+        "data",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "tipo": {
+          "format": "text",
+          "type": "string"
+        },
+        "valor": {
+          "format": "numeric",
+          "type": "number"
+        },
+        "descricao": {
+          "format": "text",
+          "type": "string"
+        },
+        "categoria": {
+          "format": "text",
+          "type": "string"
+        },
+        "data": {
+          "default": "CURRENT_DATE",
+          "format": "date",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "companies": {
+      "required": [
+        "id",
+        "nome",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "profiles": {
+      "required": [
+        "id",
+        "role",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "role": {
+          "default": "usuario_empresa",
+          "format": "text",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "produtos_cliente": {
+      "required": [
+        "id",
+        "company_id",
+        "lead_id",
+        "nome",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "lead_id": {
+          "description": "Note:\nThis is a Foreign Key to `leads.id`.<fk table='leads' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "descricao": {
+          "format": "text",
+          "type": "string"
+        },
+        "preco": {
+          "format": "numeric",
+          "type": "number"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "saldo_atual": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        },
+        "saldo_minimo": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        }
+      },
+      "type": "object"
+    },
+    "ingest_logs": {
+      "required": [
+        "id",
+        "source",
+        "payload",
+        "status",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "source": {
+          "format": "text",
+          "type": "string"
+        },
+        "payload": {
+          "format": "jsonb"
+        },
+        "status": {
+          "format": "text",
+          "type": "string"
+        },
+        "error_message": {
+          "format": "text",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "pedidos_notas": {
+      "required": [
+        "id",
+        "company_id",
+        "titulo",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "titulo": {
+          "format": "text",
+          "type": "string"
+        },
+        "descricao": {
+          "format": "text",
+          "type": "string"
+        },
+        "cor": {
+          "default": "#FFF9C4",
+          "format": "text",
+          "type": "string"
+        },
+        "status": {
+          "default": "pendente",
+          "format": "text",
+          "type": "string"
+        },
+        "posicao": {
+          "default": 0,
+          "format": "integer",
+          "type": "integer"
+        },
+        "created_at": {
+          "default": "timezone('utc'::text, now())",
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "updated_at": {
+          "default": "timezone('utc'::text, now())",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "insumos": {
+      "required": [
+        "id",
+        "company_id",
+        "nome",
+        "unidade",
+        "quantidade_atual",
+        "estoque_minimo",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "unidade": {
+          "default": "un",
+          "format": "text",
+          "type": "string"
+        },
+        "quantidade_atual": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        },
+        "estoque_minimo": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        },
+        "created_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "updated_at": {
+          "default": "now()",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "produtos": {
+      "required": [
+        "id",
+        "company_id",
+        "nome",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "nome": {
+          "format": "text",
+          "type": "string"
+        },
+        "categoria": {
+          "default": "Geral",
+          "format": "text",
+          "type": "string"
+        },
+        "unidade": {
+          "default": "un",
+          "format": "text",
+          "type": "string"
+        },
+        "saldo_atual": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        },
+        "saldo_minimo": {
+          "default": 0,
+          "format": "numeric",
+          "type": "number"
+        },
+        "ativo": {
+          "default": true,
+          "format": "boolean",
+          "type": "boolean"
+        },
+        "created_at": {
+          "default": "timezone('utc'::text, now())",
+          "format": "timestamp with time zone",
+          "type": "string"
+        },
+        "lead_id": {
+          "description": "Note:\nThis is a Foreign Key to `leads.id`.<fk table='leads' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "movimentacoes_estoque": {
+      "required": [
+        "id",
+        "company_id",
+        "produto_id",
+        "tipo",
+        "quantidade",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "default": "gen_random_uuid()",
+          "description": "Note:\nThis is a Primary Key.<pk/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "company_id": {
+          "description": "Note:\nThis is a Foreign Key to `companies.id`.<fk table='companies' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "produto_id": {
+          "description": "Note:\nThis is a Foreign Key to `produtos.id`.<fk table='produtos' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "tipo": {
+          "format": "text",
+          "type": "string"
+        },
+        "quantidade": {
+          "format": "numeric",
+          "type": "number"
+        },
+        "motivo": {
+          "format": "text",
+          "type": "string"
+        },
+        "lead_id": {
+          "description": "Note:\nThis is a Foreign Key to `leads.id`.<fk table='leads' column='id'/>",
+          "format": "uuid",
+          "type": "string"
+        },
+        "created_at": {
+          "default": "timezone('utc'::text, now())",
+          "format": "timestamp with time zone",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "parameters": {
+    "preferParams": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "preferReturn": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferCount": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "count=none"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "preferPost": {
+      "name": "Prefer",
+      "description": "Preference",
+      "required": false,
+      "enum": [
+        "return=representation",
+        "return=minimal",
+        "return=none",
+        "resolution=ignore-duplicates",
+        "resolution=merge-duplicates"
+      ],
+      "in": "header",
+      "type": "string"
+    },
+    "select": {
+      "name": "select",
+      "description": "Filtering Columns",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "on_conflict": {
+      "name": "on_conflict",
+      "description": "On Conflict",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "order": {
+      "name": "order",
+      "description": "Ordering",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "range": {
+      "name": "Range",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "header",
+      "type": "string"
+    },
+    "rangeUnit": {
+      "name": "Range-Unit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "default": "items",
+      "in": "header",
+      "type": "string"
+    },
+    "offset": {
+      "name": "offset",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "limit": {
+      "name": "limit",
+      "description": "Limiting and Pagination",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.leads": {
+      "name": "leads",
+      "description": "leads",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/leads"
+      }
+    },
+    "rowFilter.leads.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.telefone": {
+      "name": "telefone",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.origem": {
+      "name": "origem",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.observacoes": {
+      "name": "observacoes",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.data_entrada": {
+      "name": "data_entrada",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.ultimo_contato": {
+      "name": "ultimo_contato",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.status": {
+      "name": "status",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.leads.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.fluxo_caixa": {
+      "name": "fluxo_caixa",
+      "description": "fluxo_caixa",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/fluxo_caixa"
+      }
+    },
+    "rowFilter.fluxo_caixa.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.tipo": {
+      "name": "tipo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.valor": {
+      "name": "valor",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.descricao": {
+      "name": "descricao",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.categoria": {
+      "name": "categoria",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.data": {
+      "name": "data",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.fluxo_caixa.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.companies": {
+      "name": "companies",
+      "description": "companies",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/companies"
+      }
+    },
+    "rowFilter.companies.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.companies.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.companies.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.profiles": {
+      "name": "profiles",
+      "description": "profiles",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/profiles"
+      }
+    },
+    "rowFilter.profiles.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.profiles.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.profiles.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.profiles.role": {
+      "name": "role",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.profiles.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.produtos_cliente": {
+      "name": "produtos_cliente",
+      "description": "produtos_cliente",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/produtos_cliente"
+      }
+    },
+    "rowFilter.produtos_cliente.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.lead_id": {
+      "name": "lead_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.descricao": {
+      "name": "descricao",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.preco": {
+      "name": "preco",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.saldo_atual": {
+      "name": "saldo_atual",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos_cliente.saldo_minimo": {
+      "name": "saldo_minimo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.ingest_logs": {
+      "name": "ingest_logs",
+      "description": "ingest_logs",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/ingest_logs"
+      }
+    },
+    "rowFilter.ingest_logs.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.source": {
+      "name": "source",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.payload": {
+      "name": "payload",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.status": {
+      "name": "status",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.error_message": {
+      "name": "error_message",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.ingest_logs.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.pedidos_notas": {
+      "name": "pedidos_notas",
+      "description": "pedidos_notas",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/pedidos_notas"
+      }
+    },
+    "rowFilter.pedidos_notas.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.titulo": {
+      "name": "titulo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.descricao": {
+      "name": "descricao",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.cor": {
+      "name": "cor",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.status": {
+      "name": "status",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.posicao": {
+      "name": "posicao",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.pedidos_notas.updated_at": {
+      "name": "updated_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.insumos": {
+      "name": "insumos",
+      "description": "insumos",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/insumos"
+      }
+    },
+    "rowFilter.insumos.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.unidade": {
+      "name": "unidade",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.quantidade_atual": {
+      "name": "quantidade_atual",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.estoque_minimo": {
+      "name": "estoque_minimo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.insumos.updated_at": {
+      "name": "updated_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.produtos": {
+      "name": "produtos",
+      "description": "produtos",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/produtos"
+      }
+    },
+    "rowFilter.produtos.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.nome": {
+      "name": "nome",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.categoria": {
+      "name": "categoria",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.unidade": {
+      "name": "unidade",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.saldo_atual": {
+      "name": "saldo_atual",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.saldo_minimo": {
+      "name": "saldo_minimo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.ativo": {
+      "name": "ativo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.produtos.lead_id": {
+      "name": "lead_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "body.movimentacoes_estoque": {
+      "name": "movimentacoes_estoque",
+      "description": "movimentacoes_estoque",
+      "required": false,
+      "in": "body",
+      "schema": {
+        "$ref": "#/definitions/movimentacoes_estoque"
+      }
+    },
+    "rowFilter.movimentacoes_estoque.id": {
+      "name": "id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.company_id": {
+      "name": "company_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.produto_id": {
+      "name": "produto_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.tipo": {
+      "name": "tipo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.quantidade": {
+      "name": "quantidade",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.motivo": {
+      "name": "motivo",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.lead_id": {
+      "name": "lead_id",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    },
+    "rowFilter.movimentacoes_estoque.created_at": {
+      "name": "created_at",
+      "required": false,
+      "in": "query",
+      "type": "string"
+    }
+  },
+  "externalDocs": {
+    "description": "PostgREST Documentation",
+    "url": "https://postgrest.org/en/v14/references/api.html"
+  }
+}

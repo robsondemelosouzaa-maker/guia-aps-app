@@ -52,6 +52,7 @@ interface RealCounts {
     pregnantHighRisk: number; pregnantBorn: number;
     childrenTotal: number; chronicTotal: number;
     hipertensos: number; diabeticos: number; chronicRisk: number;
+    womenTotal: number; elderlyTotal: number;
 }
 
 async function fetchRealCounts(): Promise<RealCounts | null> {
@@ -73,6 +74,8 @@ async function formatCounts(): Promise<string> {
         `• 👶 Crianças (puericultura): **${c.childrenTotal}** cadastradas`,
         `• 🤰 Gestantes: **${c.pregnantTotal}** ativas — Habitual: ${c.pregnantHabitual} | Alto risco: ${c.pregnantRisk}`,
         `• ❤️ Crônicos: **${c.chronicTotal}** — Hipertensos: ${c.hipertensos} | Diabéticos: ${c.diabeticos} | Em risco: ${c.chronicRisk}`,
+        `• 🌸 Mulheres: **${c.womenTotal}** cadastradas`,
+        `• 👵 Idosos: **${c.elderlyTotal}** cadastrados`,
     ].join('\n');
 }
 
@@ -140,43 +143,27 @@ export async function getAssistantResponse(
 ): Promise<AssistantMessage> {
     const intent = detectIntent(userMessage);
 
-    // --- Bloco de dados pessoais em Modo Demonstração ---
-    if (demoMode && (intent === 'counts' || intent === 'pending' || intent === 'module')) {
-        return {
-            role: 'assistant',
-            content: txt.assistant.demoBlocked,
-            timestamp: new Date(),
-        };
-    }
-
-    // --- Camada B: dados da conta interceptados diretamente ---
-    if (intent === 'pending') {
-        return { role: 'assistant', content: formatPending(), timestamp: new Date() };
-    }
-
-    if (intent === 'counts') {
-        return { role: 'assistant', content: await formatCounts(), timestamp: new Date() };
+    // --- Formatando o contexto a ser enviado para a LLM ---
+    const c = await fetchRealCounts();
+    let currentContext = 'Informações da unidade:\n';
+    if (c) {
+        currentContext += `Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}, Idosos=${c.elderlyTotal}, Mulheres=${c.womenTotal}.\n`;
     }
 
     if (intent === 'module') {
         const slug = detectModuleSlug(userMessage);
         if (slug) {
-            const summary = getModuleSummary(slug);
-            return { role: 'assistant', content: `📂 **Resumo do módulo:**\n${summary}`, timestamp: new Date() };
+            currentContext += `Detalhes de pacientes específicos deste módulo solicitados:\n${getModuleSummary(slug)}\n`;
         }
     }
 
-    // --- Camada C: Busca RAG + Integração DeepSeek via API ---
+    if (intent === 'pending') {
+        currentContext += `Pendências Críticas p/ Hoje: ${getPendingSummary(false).join(', ')}\n`;
+    }
+
     // Primeiro tentamos achar protocolos no guia para o assunto
     const results = searchContent(userMessage, 3);
     const sources = formatGuideResult(results);
-
-    // Formatando o contexto a ser enviado para a LLM
-    const c = await fetchRealCounts();
-    let currentContext = 'Informações da unidade não disponíveis no momento.';
-    if (c) {
-        currentContext = `Resumo atual da unidade do profissional: Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}. Use essa informação se ele perguntar como está o posto hoje.`;
-    }
 
     if (results.length > 0) {
         currentContext += `\n\nProtocolos relevantes encontrados no guia:\n${results.map(r => `[Título: ${r.protocol.title}]\n${r.snippet}`).join('\n\n')}`;
@@ -216,8 +203,9 @@ export async function getAssistantResponse(
             timestamp: new Date(),
         };
     } catch (e) {
-        console.error(e);
         // Em caso de erro (offline/falha de API), faz o fallback clássico local
+        console.error("DeepSeek API failed, falling back to local guide search...");
+
         if (results.length === 0) {
             const suggestions = suggestTerms(userMessage);
             const hint = suggestions.length > 0
@@ -225,7 +213,7 @@ export async function getAssistantResponse(
                 : '';
             return {
                 role: 'assistant',
-                content: txt.assistant.notFound + hint,
+                content: "Hmm, parece que estou com dificuldades de me conectar aos meus servidores de IA no momento. 😔 " + txt.assistant.notFound + hint,
                 timestamp: new Date(),
             };
         }

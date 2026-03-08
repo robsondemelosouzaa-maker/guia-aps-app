@@ -1,0 +1,284 @@
+diff --git a/.gitignore b/.gitignore
+index 4a9b66a..c1bb5c3 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -21,3 +21,5 @@ pnpm-debug.log*
+ 
+ # vercel
+ .vercel
++.vercel
++.env*.local
+diff --git a/src/app/api/assistant/counts/route.ts b/src/app/api/assistant/counts/route.ts
+index 7a6a4d8..a27a602 100644
+--- a/src/app/api/assistant/counts/route.ts
++++ b/src/app/api/assistant/counts/route.ts
+@@ -1,9 +1,30 @@
+ import { NextResponse } from 'next/server';
+ import { createServiceClient } from '@/lib/supabase/server';
++import modulesData from '@/data/modules.json';
+ 
+ export const dynamic = 'force-dynamic';
+ 
+ export async function GET() {
++    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
++        // Fallback local / Modo demonstração
++        const getPts = (slug: string) => (modulesData as any[]).find(m => m.slug === slug)?.patients?.length || 0;
++
++        return NextResponse.json({
++            pregnantTotal: getPts('gestante'),
++            pregnantRisk: 1, // hardcoded for demo
++            pregnantHabitual: getPts('gestante') - 1,
++            pregnantHighRisk: 1,
++            pregnantBorn: 0,
++            childrenTotal: getPts('crianca'),
++            chronicTotal: getPts('cronicos'),
++            hipertensos: getPts('cronicos'), // fake split
++            diabeticos: 1,
++            chronicRisk: 2,
++            womenTotal: getPts('mulher'),
++            elderlyTotal: getPts('idosos'),
++        });
++    }
++
+     const supabase = createServiceClient();
+ 
+     const [
+@@ -28,9 +49,9 @@ export async function GET() {
+         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%HAS%'),
+         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%DM%'),
+         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).neq('risk_level', 'Habitual'),
+-        // Novas tabelas:
+-        supabase.from('womens_health').select('*', { count: 'exact', head: true }),
+-        supabase.from('elderly').select('*', { count: 'exact', head: true }),
++        // Tabela geral (patients):
++        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('gender', 'Feminino'),
++        supabase.from('patients').select('*', { count: 'exact', head: true }).gte('age', 60),
+     ]);
+ 
+     const anyError = [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11].find(Boolean);
+diff --git a/src/app/api/checklists/route.ts b/src/app/api/checklists/route.ts
+index 41d4218..f00b499 100644
+--- a/src/app/api/checklists/route.ts
++++ b/src/app/api/checklists/route.ts
+@@ -19,6 +19,10 @@ export async function GET(req: NextRequest) {
+         return NextResponse.json({ error: 'patientId e patientTable são obrigatórios' }, { status: 400 });
+     }
+ 
++    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
++        return NextResponse.json([]); // Fallback local
++    }
++
+     const supabase = svc();
+     let query = supabase
+         .from('patient_checklists')
+@@ -37,6 +41,10 @@ export async function GET(req: NextRequest) {
+ export async function POST(req: NextRequest) {
+     const item = await req.json();
+ 
++    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
++        return NextResponse.json({ ok: true, demo: true }); // Fallback local
++    }
++
+     const supabase = svc();
+     const { error } = await supabase
+         .from('patient_checklists')
+diff --git a/src/app/api/patients/[module]/route.ts b/src/app/api/patients/[module]/route.ts
+index 9ad7f72..2316998 100644
+--- a/src/app/api/patients/[module]/route.ts
++++ b/src/app/api/patients/[module]/route.ts
+@@ -1,6 +1,7 @@
+ import { NextResponse, type NextRequest } from 'next/server';
+ import { createClient } from '@supabase/supabase-js';
+ import { MODULES, type ModuleSlug } from '@/lib/db/schemaMap';
++import modulesData from '@/data/modules.json';
+ 
+ // Service client — bypassa RLS
+ function svc() {
+@@ -24,6 +25,16 @@ export async function GET(
+     const risk = url.searchParams.get('risk_level') ?? '';
+     const babyBorn = url.searchParams.get('babyBorn');
+ 
++    // ── FALLBACK LOCAL (Modo Demonstração) se não houver Supabase configurado ──
++    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
++        const mod = (modulesData as any[]).find(m => m.slug === moduleSlug);
++        let pts = mod?.patients || [];
++
++        if (search) pts = pts.filter((p: any) => p.name.toLowerCase().includes(search.toLowerCase()));
++
++        return NextResponse.json(pts);
++    }
++
+     const supabase = svc();
+     let query = supabase
+         .from(config.tableName)
+@@ -62,6 +73,11 @@ export async function POST(
+     if (!config) return NextResponse.json({ error: 'Módulo inválido' }, { status: 400 });
+ 
+     const payload = await req.json();
++
++    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
++        return NextResponse.json({ ...payload, id: 'virtual-' + Date.now() }, { status: 201 });
++    }
++
+     const supabase = svc();
+     const { data, error } = await supabase
+         .from(config.tableName)
+diff --git a/src/app/ciap/CiapClient.tsx b/src/app/ciap/CiapClient.tsx
+index f6ee62a..207e92f 100644
+--- a/src/app/ciap/CiapClient.tsx
++++ b/src/app/ciap/CiapClient.tsx
+@@ -1,7 +1,7 @@
+ 'use client';
+ import React, { useState, useMemo, useRef } from 'react';
+ import AppShell from '@/components/AppShell';
+-import { ALL_CIAP2, CIAP2_CHAPTERS } from '@/data/ciap';
++import { ALL_CIAP2, CIAP2_CHAPTERS } from '@/data/ciap/index';
+ import type { CiapEntry } from '@/data/ciap';
+ import { Search, Copy, Check, ChevronDown, X, Filter } from 'lucide-react';
+ 
+diff --git a/src/app/page.tsx b/src/app/page.tsx
+index 6826b84..6ad9ef7 100644
+--- a/src/app/page.tsx
++++ b/src/app/page.tsx
+@@ -6,18 +6,18 @@ import AppShell from '@/components/AppShell';
+ import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Clock, Baby, Heart, Activity as ActivityIcon } from 'lucide-react';
+ 
+ const patients = [
+-    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', time: '08:30', status: 'Critico', color: '#BFEFD0', href: '/modules/cronicos' },
+-    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', time: '09:15', status: 'Em dia', color: '#FFB1CC', href: '/modules/gestante' },
+-    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', time: '10:00', status: 'Pendente', color: '#BFEFD0', href: '/modules/cronicos' },
+-    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', time: '10:30', status: 'Alto risco', color: '#FFB1CC', href: '/modules/gestante' },
++    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', time: '08:30', status: 'Critico', color: '#BFEFD0', href: '/pacientes/cronicos' },
++    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', time: '09:15', status: 'Em dia', color: '#FFB1CC', href: '/pacientes/gestante' },
++    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', time: '10:00', status: 'Pendente', color: '#BFEFD0', href: '/pacientes/cronicos' },
++    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', time: '10:30', status: 'Alto risco', color: '#FFB1CC', href: '/pacientes/gestante' },
+ ];
+ 
+ const quickAccess = [
+-    { label: 'Gestante', icon: '🤰', color: '#FFB1CC', href: '/modules/gestante' },
+-    { label: 'CD', icon: '👶', color: '#A7D8FF', href: '/modules/crianca' },
+-    { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/modules/idoso' },
+-    { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/modules/cronicos' },
+-    { label: 'S. da Mulher', icon: '🌸', color: '#D8B4E2', href: '/modules/mulher' },
++    { label: 'Gestante', icon: '🤰', color: '#FFB1CC', href: '/pacientes/gestante' },
++    { label: 'CD', icon: '👶', color: '#A7D8FF', href: '/pacientes/crianca' },
++    { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/pacientes/idosos' },
++    { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/pacientes/cronicos' },
++    { label: 'S. da Mulher', icon: '🌸', color: '#D8B4E2', href: '/pacientes/mulher' },
+ ];
+ 
+ const statusStyle: Record<string, string> = {
+@@ -90,7 +90,7 @@ export default function DashboardPage() {
+             <div className="space-y-1 mb-6">
+                 <h1 className="text-3xl font-black tracking-tight">{greeting}, {userName} 👋</h1>
+                 <p className="text-slate-500 font-medium text-sm mt-1">
+-                    Seu painel clínico individualizado. Você tem <Link href="/modules/cronicos" className="text-emerald-600 font-bold hover:underline">4 pacientes em atenção prioritária</Link>.
++                    Seu painel clínico individualizado. Você tem <Link href="/pacientes/cronicos" className="text-emerald-600 font-bold hover:underline">4 pacientes em atenção prioritária</Link>.
+                 </p>
+             </div>
+ 
+@@ -139,7 +139,7 @@ export default function DashboardPage() {
+                         <span className="w-1.5 h-6 bg-emerald-500 rounded-full" />
+                         Situações Críticas (Meus Pacientes)
+                     </h2>
+-                    <Link href="/modules" className="text-emerald-600 dark:text-emerald-400 text-sm font-bold hover:underline flex items-center gap-1">
++                    <Link href="/pacientes/gestante" className="text-emerald-600 dark:text-emerald-400 text-sm font-bold hover:underline flex items-center gap-1">
+                         Ver todos <ArrowUpRight size={14} />
+                     </Link>
+                 </div>
+diff --git a/src/lib/assistantEngine.ts b/src/lib/assistantEngine.ts
+index 5ca0b46..bd6b888 100644
+--- a/src/lib/assistantEngine.ts
++++ b/src/lib/assistantEngine.ts
+@@ -52,6 +52,7 @@ interface RealCounts {
+     pregnantHighRisk: number; pregnantBorn: number;
+     childrenTotal: number; chronicTotal: number;
+     hipertensos: number; diabeticos: number; chronicRisk: number;
++    womenTotal: number; elderlyTotal: number;
+ }
+ 
+ async function fetchRealCounts(): Promise<RealCounts | null> {
+@@ -73,6 +74,8 @@ async function formatCounts(): Promise<string> {
+         `• 👶 Crianças (puericultura): **${c.childrenTotal}** cadastradas`,
+         `• 🤰 Gestantes: **${c.pregnantTotal}** ativas — Habitual: ${c.pregnantHabitual} | Alto risco: ${c.pregnantRisk}`,
+         `• ❤️ Crônicos: **${c.chronicTotal}** — Hipertensos: ${c.hipertensos} | Diabéticos: ${c.diabeticos} | Em risco: ${c.chronicRisk}`,
++        `• 🌸 Mulheres: **${c.womenTotal}** cadastradas`,
++        `• 👵 Idosos: **${c.elderlyTotal}** cadastrados`,
+     ].join('\n');
+ }
+ 
+@@ -140,44 +143,28 @@ export async function getAssistantResponse(
+ ): Promise<AssistantMessage> {
+     const intent = detectIntent(userMessage);
+ 
+-    // --- Bloco de dados pessoais em Modo Demonstração ---
+-    if (demoMode && (intent === 'counts' || intent === 'pending' || intent === 'module')) {
+-        return {
+-            role: 'assistant',
+-            content: txt.assistant.demoBlocked,
+-            timestamp: new Date(),
+-        };
+-    }
+-
+-    // --- Camada B: dados da conta interceptados diretamente ---
+-    if (intent === 'pending') {
+-        return { role: 'assistant', content: formatPending(), timestamp: new Date() };
+-    }
+-
+-    if (intent === 'counts') {
+-        return { role: 'assistant', content: await formatCounts(), timestamp: new Date() };
++    // --- Formatando o contexto a ser enviado para a LLM ---
++    const c = await fetchRealCounts();
++    let currentContext = 'Informações da unidade:\n';
++    if (c) {
++        currentContext += `Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}, Idosos=${c.elderlyTotal}, Mulheres=${c.womenTotal}.\n`;
+     }
+ 
+     if (intent === 'module') {
+         const slug = detectModuleSlug(userMessage);
+         if (slug) {
+-            const summary = getModuleSummary(slug);
+-            return { role: 'assistant', content: `📂 **Resumo do módulo:**\n${summary}`, timestamp: new Date() };
++            currentContext += `Detalhes de pacientes específicos deste módulo solicitados:\n${getModuleSummary(slug)}\n`;
+         }
+     }
+ 
+-    // --- Camada C: Busca RAG + Integração DeepSeek via API ---
++    if (intent === 'pending') {
++        currentContext += `Pendências Críticas p/ Hoje: ${getPendingSummary(false).join(', ')}\n`;
++    }
++
+     // Primeiro tentamos achar protocolos no guia para o assunto
+     const results = searchContent(userMessage, 3);
+     const sources = formatGuideResult(results);
+ 
+-    // Formatando o contexto a ser enviado para a LLM
+-    const c = await fetchRealCounts();
+-    let currentContext = 'Informações da unidade não disponíveis no momento.';
+-    if (c) {
+-        currentContext = `Resumo atual da unidade do profissional: Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}. Use essa informação se ele perguntar como está o posto hoje.`;
+-    }
+-
+     if (results.length > 0) {
+         currentContext += `\n\nProtocolos relevantes encontrados no guia:\n${results.map(r => `[Título: ${r.protocol.title}]\n${r.snippet}`).join('\n\n')}`;
+     }
+@@ -216,8 +203,9 @@ export async function getAssistantResponse(
+             timestamp: new Date(),
+         };
+     } catch (e) {
+-        console.error(e);
+         // Em caso de erro (offline/falha de API), faz o fallback clássico local
++        console.error("DeepSeek API failed, falling back to local guide search...");
++
+         if (results.length === 0) {
+             const suggestions = suggestTerms(userMessage);
+             const hint = suggestions.length > 0
+@@ -225,7 +213,7 @@ export async function getAssistantResponse(
+                 : '';
+             return {
+                 role: 'assistant',
+-                content: txt.assistant.notFound + hint,
++                content: "Hmm, parece que estou com dificuldades de me conectar aos meus servidores de IA no momento. 😔 " + txt.assistant.notFound + hint,
+                 timestamp: new Date(),
+             };
+         }

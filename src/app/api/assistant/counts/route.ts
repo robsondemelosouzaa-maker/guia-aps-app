@@ -1,9 +1,30 @@
 import { NextResponse } from 'next/server';
 import { createServiceClient } from '@/lib/supabase/server';
+import modulesData from '@/data/modules.json';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        // Fallback local / Modo demonstração
+        const getPts = (slug: string) => (modulesData as any[]).find(m => m.slug === slug)?.patients?.length || 0;
+
+        return NextResponse.json({
+            pregnantTotal: getPts('gestante'),
+            pregnantRisk: 1, // hardcoded for demo
+            pregnantHabitual: getPts('gestante') - 1,
+            pregnantHighRisk: 1,
+            pregnantBorn: 0,
+            childrenTotal: getPts('crianca'),
+            chronicTotal: getPts('cronicos'),
+            hipertensos: getPts('cronicos'), // fake split
+            diabeticos: 1,
+            chronicRisk: 2,
+            womenTotal: getPts('mulher'),
+            elderlyTotal: getPts('idosos'),
+        });
+    }
+
     const supabase = createServiceClient();
 
     const [
@@ -28,9 +49,9 @@ export async function GET() {
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%HAS%'),
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%DM%'),
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).neq('risk_level', 'Habitual'),
-        // Novas tabelas:
-        supabase.from('womens_health').select('*', { count: 'exact', head: true }),
-        supabase.from('elderly').select('*', { count: 'exact', head: true }),
+        // Tabela geral (patients):
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('gender', 'Feminino'),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).gte('age', 60),
     ]);
 
     const anyError = [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11].find(Boolean);

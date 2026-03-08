@@ -19,6 +19,10 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'patientId e patientTable são obrigatórios' }, { status: 400 });
     }
 
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return NextResponse.json([]); // Fallback local
+    }
+
     const supabase = svc();
     let query = supabase
         .from('patient_checklists')
@@ -36,6 +40,10 @@ export async function GET(req: NextRequest) {
 // POST /api/checklists
 export async function POST(req: NextRequest) {
     const item = await req.json();
+
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        return NextResponse.json({ ok: true, demo: true }); // Fallback local
+    }
 
     const supabase = svc();
     const { error } = await supabase

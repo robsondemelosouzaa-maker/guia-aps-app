@@ -6,18 +6,18 @@ import AppShell from '@/components/AppShell';
 import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Clock, Baby, Heart, Activity as ActivityIcon } from 'lucide-react';
 
 const patients = [
-    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', time: '08:30', status: 'Critico', color: '#BFEFD0', href: '/modules/cronicos' },
-    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', time: '09:15', status: 'Em dia', color: '#FFB1CC', href: '/modules/gestante' },
-    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', time: '10:00', status: 'Pendente', color: '#BFEFD0', href: '/modules/cronicos' },
-    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', time: '10:30', status: 'Alto risco', color: '#FFB1CC', href: '/modules/gestante' },
+    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', time: '08:30', status: 'Critico', color: '#BFEFD0', href: '/pacientes/cronicos' },
+    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', time: '09:15', status: 'Em dia', color: '#FFB1CC', href: '/pacientes/gestante' },
+    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', time: '10:00', status: 'Pendente', color: '#BFEFD0', href: '/pacientes/cronicos' },
+    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', time: '10:30', status: 'Alto risco', color: '#FFB1CC', href: '/pacientes/gestante' },
 ];
 
 const quickAccess = [
-    { label: 'Gestante', icon: '🤰', color: '#FFB1CC', href: '/modules/gestante' },
-    { label: 'CD', icon: '👶', color: '#A7D8FF', href: '/modules/crianca' },
-    { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/modules/idoso' },
-    { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/modules/cronicos' },
-    { label: 'S. da Mulher', icon: '🌸', color: '#D8B4E2', href: '/modules/mulher' },
+    { label: 'Gestante', icon: '🤰', color: '#FFB1CC', href: '/pacientes/gestante' },
+    { label: 'CD', icon: '👶', color: '#A7D8FF', href: '/pacientes/crianca' },
+    { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/pacientes/idosos' },
+    { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/pacientes/cronicos' },
+    { label: 'S. da Mulher', icon: '🌸', color: '#D8B4E2', href: '/pacientes/mulher' },
 ];
 
 const statusStyle: Record<string, string> = {
@@ -90,7 +90,7 @@ export default function DashboardPage() {
             <div className="space-y-1 mb-6">
                 <h1 className="text-3xl font-black tracking-tight">{greeting}, {userName} 👋</h1>
                 <p className="text-slate-500 font-medium text-sm mt-1">
-                    Seu painel clínico individualizado. Você tem <Link href="/modules/cronicos" className="text-emerald-600 font-bold hover:underline">4 pacientes em atenção prioritária</Link>.
+                    Seu painel clínico individualizado. Você tem <Link href="/pacientes/cronicos" className="text-emerald-600 font-bold hover:underline">4 pacientes em atenção prioritária</Link>.
                 </p>
             </div>
 
@@ -139,7 +139,7 @@ export default function DashboardPage() {
                         <span className="w-1.5 h-6 bg-emerald-500 rounded-full" />
                         Situações Críticas (Meus Pacientes)
                     </h2>
-                    <Link href="/modules" className="text-emerald-600 dark:text-emerald-400 text-sm font-bold hover:underline flex items-center gap-1">
+                    <Link href="/pacientes/gestante" className="text-emerald-600 dark:text-emerald-400 text-sm font-bold hover:underline flex items-center gap-1">
                         Ver todos <ArrowUpRight size={14} />
                     </Link>
                 </div>
