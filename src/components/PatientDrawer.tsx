@@ -293,7 +293,7 @@ export function PatientDrawer({
                                 }`}>{String(form.risk_level ?? 'Habitual')}</span>
 
                             {/* Baby born badge */}
-                            {config.hasBabyBorn && form.is_pregnant === false && (
+                            {config.hasBabyBorn && (form.is_puerperio === true || form.is_pregnant === false) && (
                                 <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-pink-100 dark:bg-pink-900/40 text-pink-700 dark:text-pink-300">
                                     🍼 Pós-parto
                                 </span>
@@ -336,10 +336,14 @@ export function PatientDrawer({
                                 <span className="text-sm font-bold text-pink-700 dark:text-pink-300">Já teve o bebê</span>
                             </div>
                             <button
-                                onClick={() => setField('is_pregnant', !form.is_pregnant)}
-                                className={`w-12 h-6 rounded-full transition-colors relative ${!form.is_pregnant ? 'bg-pink-500' : 'bg-slate-300 dark:bg-slate-600'}`}
-                                role="switch" aria-checked={!form.is_pregnant}>
-                                <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${!form.is_pregnant ? 'translate-x-6' : ''}`} />
+                                onClick={() => {
+                                    const nowPuerperio = !form.is_puerperio;
+                                    setField('is_puerperio', nowPuerperio);
+                                    setField('is_pregnant', !nowPuerperio);
+                                }}
+                                className={`w-12 h-6 rounded-full transition-colors relative ${form.is_puerperio ? 'bg-pink-500' : 'bg-slate-300 dark:bg-slate-600'}`}
+                                role="switch" aria-checked={!!form.is_puerperio}>
+                                <div className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${form.is_puerperio ? 'translate-x-6' : ''}`} />
                             </button>
                         </div>
                     )}

@@ -48,11 +48,9 @@ function NewPatientModal({ moduleSlug, open, onClose, onCreated }: {
                 [mod.nameField]: name.trim(),
                 [mod.phoneField]: phone,
                 [mod.riskField]: risk,
+                // Defaults do módulo (is_pregnant, is_child, gender, etc)
+                ...(mod.createDefaults ?? {}),
             };
-            // Gestante default
-            if (moduleSlug === 'gestante') payload.is_pregnant = true;
-            // Mulher default
-            if (moduleSlug === 'mulher') payload.gender = 'Feminino';
             await createPatient(moduleSlug, payload);
             onCreated();
             onClose();

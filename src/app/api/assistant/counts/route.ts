@@ -1,70 +1,82 @@
 import { NextResponse } from 'next/server';
-import { createServiceClient } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 import modulesData from '@/data/modules.json';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-        // Fallback local / Modo demonstração
-        const getPts = (slug: string) => (modulesData as any[]).find(m => m.slug === slug)?.patients?.length || 0;
+function svc() {
+    return createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+}
 
+export async function GET() {
+    // ── FALLBACK LOCAL se não houver Supabase ──
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+        const getPts = (slug: string) => (modulesData as any[]).find(m => m.slug === slug)?.patients?.length || 0;
         return NextResponse.json({
             pregnantTotal: getPts('gestante'),
-            pregnantRisk: 1, // hardcoded for demo
+            pregnantRisk: 1,
             pregnantHabitual: getPts('gestante') - 1,
             pregnantHighRisk: 1,
-            pregnantBorn: 0,
+            puerpTotal: 0,
             childrenTotal: getPts('crianca'),
             chronicTotal: getPts('cronicos'),
-            hipertensos: getPts('cronicos'), // fake split
+            hipertensos: getPts('cronicos'),
             diabeticos: 1,
             chronicRisk: 2,
             womenTotal: getPts('mulher'),
             elderlyTotal: getPts('idosos'),
+            totalUnique: 0,
         });
     }
 
-    const supabase = createServiceClient();
+    const supabase = svc();
 
+    // Todas as contagens agora são da tabela ÚNICA `patients`
+    // — Isso elimina a duplicidade de cadastros nos totais!
     const [
-        { count: pregnantTotal, error: e1 },
-        { count: pregnantRisk, error: e2 },
-        { count: pregnantHighRisk, error: e3 },
-        { count: pregnantBorn, error: e4 },
-        { count: childrenTotal, error: e5 },
-        { count: chronicTotal, error: e6 },
-        { count: hipertensos, error: e7 },
-        { count: diabeticos, error: e8 },
-        { count: chronicRisk, error: e9 },
-        { count: womenTotal, error: e10 },
-        { count: elderlyTotal, error: e11 },
+        { count: pregnantTotal },
+        { count: pregnantRisk },
+        { count: pregnantHighRisk },
+        { count: puerpTotal },
+        { count: childrenTotal },
+        { count: chronicTotal },
+        { count: hipertensos },
+        { count: diabeticos },
+        { count: chronicRisk },
+        { count: womenTotal },
+        { count: elderlyTotal },
+        { count: totalUnique },
     ] = await Promise.all([
-        supabase.from('pregnant_women').select('*', { count: 'exact', head: true }),
-        supabase.from('pregnant_women').select('*', { count: 'exact', head: true }).eq('risk_level', 'Risco'),
-        supabase.from('pregnant_women').select('*', { count: 'exact', head: true }).eq('risk_level', 'Alto Risco'),
-        supabase.from('pregnant_women').select('*', { count: 'exact', head: true }).eq('is_pregnant', false),
-        supabase.from('children').select('*', { count: 'exact', head: true }),
-        supabase.from('chronic_patients').select('*', { count: 'exact', head: true }),
-        supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%HAS%'),
-        supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%DM%'),
-        supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).neq('risk_level', 'Habitual'),
-        // Tabela geral (patients):
+        // Gestantes
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_pregnant', true),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_pregnant', true).eq('risk_level', 'Risco'),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_pregnant', true).eq('risk_level', 'Alto Risco'),
+        // Puerpério
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_puerperio', true),
+        // Crianças
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_child', true),
+        // Crônicos
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_chronic', true),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_chronic', true).ilike('condition', '%HAS%'),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_chronic', true).ilike('condition', '%DM%'),
+        supabase.from('patients').select('*', { count: 'exact', head: true }).eq('is_chronic', true).neq('risk_level', 'Habitual'),
+        // Saúde da Mulher — inclui gestantes e puérperas automaticamente (mesma linha, sem duplicar)
         supabase.from('patients').select('*', { count: 'exact', head: true }).eq('gender', 'Feminino'),
+        // Idosos (age >= 60)
         supabase.from('patients').select('*', { count: 'exact', head: true }).gte('age', 60),
+        // Total único de pacientes no sistema
+        supabase.from('patients').select('*', { count: 'exact', head: true }),
     ]);
-
-    const anyError = [e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11].find(Boolean);
-    if (anyError) {
-        return NextResponse.json({ error: anyError.message }, { status: 500 });
-    }
 
     return NextResponse.json({
         pregnantTotal: pregnantTotal ?? 0,
         pregnantRisk: (pregnantRisk ?? 0) + (pregnantHighRisk ?? 0),
         pregnantHabitual: (pregnantTotal ?? 0) - (pregnantRisk ?? 0) - (pregnantHighRisk ?? 0),
         pregnantHighRisk: pregnantHighRisk ?? 0,
-        pregnantBorn: pregnantBorn ?? 0,
+        puerpTotal: puerpTotal ?? 0,
         childrenTotal: childrenTotal ?? 0,
         chronicTotal: chronicTotal ?? 0,
         hipertensos: hipertensos ?? 0,
@@ -72,5 +84,6 @@ export async function GET() {
         chronicRisk: chronicRisk ?? 0,
         womenTotal: womenTotal ?? 0,
         elderlyTotal: elderlyTotal ?? 0,
+        totalUnique: totalUnique ?? 0,
     });
 }
