@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AppShell from '@/components/AppShell';
-import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Clock, Baby, Heart, Activity as ActivityIcon } from 'lucide-react';
+import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Baby, Heart, Activity as ActivityIcon } from 'lucide-react';
 
 const patients = [
-    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', time: '08:30', status: 'Critico', color: '#BFEFD0', href: '/pacientes/cronicos' },
-    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', time: '09:15', status: 'Em dia', color: '#FFB1CC', href: '/pacientes/gestante' },
-    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', time: '10:00', status: 'Pendente', color: '#BFEFD0', href: '/pacientes/cronicos' },
-    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', time: '10:30', status: 'Alto risco', color: '#FFB1CC', href: '/pacientes/gestante' },
+    { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', status: 'Critico', color: '#BFEFD0', href: '/pacientes/cronicos' },
+    { id: '2', name: 'Maria Oliveira', info: 'Gestante 32ª sem. · Pré-natal hoje', status: 'Em dia', color: '#FFB1CC', href: '/pacientes/gestante' },
+    { id: '3', name: 'Ricardo Santos', info: 'Diabético · Renovação de Receita', status: 'Pendente', color: '#BFEFD0', href: '/pacientes/cronicos' },
+    { id: '4', name: 'Ana Souza', info: 'Gestante 14ª sem. · PA elevada', status: 'Alto risco', color: '#FFB1CC', href: '/pacientes/gestante' },
 ];
 
 const quickAccess = [
     { label: 'Gestante', icon: '🤰', color: '#FFB1CC', href: '/pacientes/gestante' },
+    { label: 'Puerpério', icon: '🍼', color: '#F9A8D4', href: '/pacientes/puerperio' },
     { label: 'CD', icon: '👶', color: '#A7D8FF', href: '/pacientes/crianca' },
     { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/pacientes/idosos' },
     { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/pacientes/cronicos' },
@@ -30,6 +31,7 @@ const statusStyle: Record<string, string> = {
 // Define structure for stats
 interface Counts {
     pregnantTotal: number;
+    pregnantBorn: number;
     childrenTotal: number;
     chronicTotal: number;
     womenTotal: number;
@@ -79,6 +81,7 @@ export default function DashboardPage() {
     const metrics = [
         { icon: '👶', label: 'Crianças (CD)', value: counts ? counts.childrenTotal : '--', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300' },
         { icon: '🤰', label: 'Gestantes', value: counts ? counts.pregnantTotal : '--', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/40 dark:text-pink-300' },
+        { icon: '🍼', label: 'Puérperas', value: counts ? counts.pregnantBorn : '--', color: 'bg-fuchsia-100 text-fuchsia-700 dark:bg-fuchsia-900/40 dark:text-fuchsia-300' },
         { icon: '👵', label: 'Idosos', value: counts ? counts.elderlyTotal : '--', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300' },
         { icon: '🌸', label: 'Mulheres', value: counts ? counts.womenTotal : '--', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300' },
         { icon: '❤️', label: 'HAS / DM', value: counts ? counts.chronicTotal : '--', color: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300' },
@@ -158,9 +161,6 @@ export default function DashboardPage() {
                                     </div>
                                 </div>
                                 <div className="text-right shrink-0 ml-3">
-                                    <div className="flex items-center gap-1 text-slate-400 text-xs font-semibold mb-1.5 justify-end">
-                                        <Clock size={12} /> {p.time}
-                                    </div>
                                     <span className={`text-[10px] px-2 py-0.5 rounded-full font-black uppercase tracking-wide ${statusStyle[p.status]}`}>
                                         {p.status}
                                     </span>
