@@ -114,7 +114,6 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
     const [error, setError] = useState('');
     const [search, setSearch] = useState('');
     const [riskFilter, setRiskFilter] = useState('');
-    const [babyBorn, setBabyBorn] = useState(false);
     const [selected, setSelected] = useState<Record<string, unknown> | null>(null);
     const [showNew, setShowNew] = useState(false);
 
@@ -124,7 +123,6 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
             const data = await listPatients(moduleSlug, {
                 search: search || undefined,
                 risk_level: riskFilter || undefined,
-                babyBorn: config.hasBabyBorn ? babyBorn : undefined,
             });
             setPatients(data as Record<string, unknown>[]);
         } catch (e: unknown) {
@@ -132,7 +130,7 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
         } finally {
             setLoading(false);
         }
-    }, [moduleSlug, search, riskFilter, babyBorn, config.hasBabyBorn]);
+    }, [moduleSlug, search, riskFilter]);
 
     useEffect(() => { load(); }, [load]);
 
@@ -166,12 +164,6 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
                         <option value="">Todos os riscos</option>
                         {RISK_LEVELS.map(r => <option key={r} value={r}>{r}</option>)}
                     </select>
-                    {config.hasBabyBorn && (
-                        <button onClick={() => setBabyBorn(!babyBorn)}
-                            className={`h-11 px-4 rounded-2xl text-sm font-bold border transition-colors ${babyBorn ? 'bg-pink-100 dark:bg-pink-900/40 border-pink-200 dark:border-pink-800 text-pink-700 dark:text-pink-300' : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-400'}`}>
-                            🍼 {babyBorn ? 'Pós-parto' : 'Ativas'}
-                        </button>
-                    )}
                 </div>
 
                 {/* Content */}

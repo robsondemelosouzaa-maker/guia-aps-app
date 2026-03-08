@@ -52,10 +52,8 @@ export async function GET(
         }
     }
 
-    // baby_born
-    if (config.hasBabyBorn && babyBorn !== null) {
-        query = query.eq('is_pregnant', babyBorn !== 'true');
-    }
+    // O filtro baby_born agora é gerenciado 100% pelo `baseFilter` no schemaMap
+    // Removida filtragem manual de URL que conflitava gerando is_pregnant = true e false simultaneos.
 
     if (risk) query = query.eq('risk_level', risk);
     if (search) query = query.ilike('name', `%${search}%`);
