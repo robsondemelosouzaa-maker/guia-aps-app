@@ -22,6 +22,7 @@ const mainNav = [
 // ── Patient module nav ────────────────────────────────────────
 const patientNav = [
     { href: '/pacientes/gestante', icon: Baby, label: 'Gestantes' },
+    { href: '/pacientes/puerperio', icon: Baby, label: 'Puerpério' },
     { href: '/pacientes/crianca', icon: Users, label: 'Crianças (CD)' },
     { href: '/pacientes/cronicos', icon: Stethoscope, label: 'Crônicos' },
     { href: '/pacientes/mulher', icon: Heart, label: 'Saúde da Mulher' },
@@ -209,6 +210,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                 </Link>
                 <Link href="/pacientes/gestante" className={`flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl ${pathname.includes('gestante') ? 'text-emerald-500' : 'text-slate-400'}`}>
                     <Baby size={20} strokeWidth={pathname.includes('gestante') ? 2.5 : 2} /><span className="text-[9px] font-bold">Gestantes</span>
+                </Link>
+                <Link href="/pacientes/puerperio" className={`flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl ${pathname.includes('puerperio') ? 'text-emerald-500' : 'text-slate-400'}`}>
+                    <Baby size={20} strokeWidth={pathname.includes('puerperio') ? 2.5 : 2} /><span className="text-[9px] font-bold">Puerpério</span>
                 </Link>
                 <Link href="/pacientes/crianca" className={`flex flex-col items-center gap-0.5 py-2 px-3 rounded-xl ${pathname.includes('crianca') ? 'text-emerald-500' : 'text-slate-400'}`}>
                     <Users size={20} strokeWidth={pathname.includes('crianca') ? 2.5 : 2} /><span className="text-[9px] font-bold">CD</span>

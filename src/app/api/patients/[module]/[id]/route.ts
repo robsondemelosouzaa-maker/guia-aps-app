@@ -2,6 +2,8 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
 import { MODULES, type ModuleSlug } from '@/lib/db/schemaMap';
 
+export const dynamic = 'force-dynamic';
+
 function svc() {
     return createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,

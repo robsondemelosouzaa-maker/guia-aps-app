@@ -3,6 +3,7 @@
 
 export type ModuleSlug =
     | 'gestante'
+    | 'puerperio'
     | 'crianca'
     | 'cronicos'
     | 'mulher'
@@ -36,7 +37,21 @@ export const MODULES: Record<ModuleSlug, ModuleConfig> = {
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
-        hiddenFields: ['id', 'user_id', 'created_at'],
+        baseFilter: { is_pregnant: true },
+        hiddenFields: ['id', 'user_id', 'created_at', 'is_pregnant'],
+        readonlyFields: ['id', 'user_id', 'created_at'],
+        defaultOrder: { column: 'name', ascending: true },
+        hasBabyBorn: true,
+        hasChecklist: true,
+    },
+    puerperio: {
+        tableName: 'pregnant_women',
+        displayName: 'Puerpério',
+        phoneField: 'phone',
+        nameField: 'name',
+        riskField: 'risk_level',
+        baseFilter: { is_pregnant: false },
+        hiddenFields: ['id', 'user_id', 'created_at', 'is_pregnant'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
         hasBabyBorn: true,

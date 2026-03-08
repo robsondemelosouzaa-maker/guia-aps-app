@@ -3,6 +3,8 @@ import { createClient } from '@supabase/supabase-js';
 import { MODULES, type ModuleSlug } from '@/lib/db/schemaMap';
 import modulesData from '@/data/modules.json';
 
+export const dynamic = 'force-dynamic';
+
 // Service client — bypassa RLS
 function svc() {
     return createClient(

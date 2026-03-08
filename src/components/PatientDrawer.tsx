@@ -118,6 +118,7 @@ function ChecklistSection({ patientId, tableName, periods }: {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
+        setLoaded(false);
         getChecklist(patientId, tableName).then(rows => {
             const map: Record<string, boolean> = {};
             (rows as ChecklistItemDB[]).forEach(r => {
