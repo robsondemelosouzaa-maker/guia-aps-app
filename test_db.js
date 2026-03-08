@@ -1,15 +1,31 @@
 const { createClient } = require('@supabase/supabase-js');
+require('dotenv').config({ path: '.env.local' });
 
-const url = 'https://qedzzyzbaeuedvwuticd.supabase.co';
-const key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFlZHp6eXpiYWV1ZWR2d3V0aWNkIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTI3NDAzNiwiZXhwIjoyMDg2ODUwMDM2fQ.eZxUqPRsne4iKo_unBx1idctguggXXoiYIAp8qiPVlU';
-const supabase = createClient(url, key);
+const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
+);
 
 async function test() {
-    const { data, error } = await supabase.from('pregnant_women').select('*').limit(5);
-    if (error) {
-        console.error('Erro ao consultar Supabase:', error);
-    } else {
-        console.log('Resultados de gestantes:', data);
-    }
+    let { data, error } = await supabase.from('pregnant_women').select('*').limit(1).single();
+    if (error) { console.error("Error fetching pregnant_women:", error); return; }
+
+    console.log("Checklist Upsert...");
+    const res = await supabase.from('patient_checklists').upsert({
+        patient_id: data.id,
+        patient_table: 'pregnant_women',
+        period_key: 'mes_1',
+        item_key: 'tipagem',
+        item_label: 'Tipagem',
+        checked: true,
+        checked_at: new Date().toISOString(),
+    }, { onConflict: 'patient_id,patient_table,period_key,item_key' });
+    console.log('Checklist Upsert Result:', res.error ? res.error.message : 'OK');
+
+    console.log("Observation Update...");
+    const obsRes = await supabase.from('pregnant_women').update({
+        observations: 'Test'
+    }).eq('id', data.id);
+    console.log('Observation Update Result:', obsRes.error ? obsRes.error.message : 'OK');
 }
 test();

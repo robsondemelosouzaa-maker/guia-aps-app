@@ -155,7 +155,7 @@ function ChecklistSection({ patientId, tableName, periods }: {
                             <div className="flex items-center gap-3">
                                 <span className="font-bold text-sm">{period.label}</span>
                                 <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${done === total ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
-                                        : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
+                                    : 'bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-400'
                                     }`}>{done}/{total}</span>
                             </div>
                             {isOpen ? <ChevronUp size={16} className="text-slate-400" /> : <ChevronDown size={16} className="text-slate-400" />}
@@ -287,8 +287,8 @@ export function PatientDrawer({
                         <div className="flex items-center gap-2 mt-0.5">
                             {/* Risk badge */}
                             <span className={`text-[10px] font-black px-2 py-0.5 rounded-full ${String(form.risk_level) === 'Alto Risco' ? 'bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300' :
-                                    String(form.risk_level) === 'Risco' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300' :
-                                        'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
+                                String(form.risk_level) === 'Risco' ? 'bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300' :
+                                    'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300'
                                 }`}>{String(form.risk_level ?? 'Habitual')}</span>
 
                             {/* Baby born badge */}
@@ -317,7 +317,7 @@ export function PatientDrawer({
                     {(['dados', 'observacoes', ...(checklistPeriods?.length ? ['checklist'] : [])] as const).map(t => (
                         <button key={t} onClick={() => setTab(t as typeof tab)}
                             className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-colors ${tab === t ? 'bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300' :
-                                    'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
+                                'text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800'
                                 }`}>
                             {t === 'dados' ? 'Dados' : t === 'observacoes' ? 'Obs. e Autocuidado' : 'Checklist'}
                         </button>
@@ -369,9 +369,7 @@ export function PatientDrawer({
                             </div>
                             <FieldInput name="observations" value={field('observations')} onChange={v => setField('observations', v)} />
                             <FieldInput name="autocuidado" value={field('autocuidado')} onChange={v => setField('autocuidado', v)} />
-                            {form.medications !== undefined && (
-                                <FieldInput name="medications" value={field('medications')} onChange={v => setField('medications', v)} />
-                            )}
+                            <FieldInput name="medications" value={field('medications')} onChange={v => setField('medications', v)} />
                         </div>
                     )}
 

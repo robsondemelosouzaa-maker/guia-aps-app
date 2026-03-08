@@ -250,16 +250,7 @@ export async function getAssistantResponse(
 
         const textResponse = await response.text();
 
-        // Extrai texto puro do formato streamText da SDK AI ("0:Este é o texto")
-        const cleanContent = textResponse
-            .split('\n')
-            .filter(line => line.startsWith('0:'))
-            .map(line => line.substring(2))
-            .map(line => {
-                try { return JSON.parse(line); } catch { return line; }
-            })
-            .join('')
-            .replace(/\\n/g, '\n');
+        const cleanContent = textResponse;
 
         return {
             role: 'assistant',
