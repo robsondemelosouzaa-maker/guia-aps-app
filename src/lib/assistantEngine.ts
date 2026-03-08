@@ -137,6 +137,34 @@ export async function handleChip(chip: string): Promise<AssistantMessage> {
 }
 
 // ── Resposta principal do assistente (DeepSeek) ─────────────────
+// ── Busca lista de pacientes de um módulo via API ────────────
+async function fetchPatientList(module: string, search?: string): Promise<any[] | null> {
+    try {
+        const url = `/api/patients/${module}${search ? `?search=${encodeURIComponent(search)}` : ''}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return null;
+        return await res.json();
+    } catch {
+        return null;
+    }
+}
+
+// ── Detecta se usuário quer info de um paciente específico ────
+function detectPatientSearch(msg: string): string | null {
+    const m = msg.toLowerCase();
+    // Padrões como "paciente Maria", "encontre João", "buscar Silva"
+    const patterns = [
+        /paciente\s+([a-záéíóúàâêôãõçü\s]+)/i,
+        /(?:encontre?|busca[rn]?|mostra[rn]?|informa[rn]?)\s+(?:o|a|os|as)?\s*(?:paciente)?\s*([a-záéíóúàâêôãõçü\s]{3,})/i,
+        /(?:sobre|de)\s+(?:o|a)?\s*(?:paciente)?\s*([a-záéíóúàâêôãõçü\s]{3,})/i,
+    ];
+    for (const p of patterns) {
+        const match = msg.match(p);
+        if (match && match[1]) return match[1].trim();
+    }
+    return null;
+}
+
 export async function getAssistantResponse(
     userMessage: string,
     demoMode = false
@@ -145,28 +173,67 @@ export async function getAssistantResponse(
 
     // --- Formatando o contexto a ser enviado para a LLM ---
     const c = await fetchRealCounts();
-    let currentContext = 'Informações da unidade:\n';
+    let currentContext = '## Estatísticas da UBS:\n';
     if (c) {
-        currentContext += `Crianças=${c.childrenTotal}, Gestantes=${c.pregnantTotal} (Alto risco: ${c.pregnantRisk}), Hipertensos=${c.hipertensos}, Diabéticos=${c.diabeticos}, Idosos=${c.elderlyTotal}, Mulheres=${c.womenTotal}.\n`;
+        currentContext += `- Crianças em puericultura: ${c.childrenTotal}\n`;
+        currentContext += `- Gestantes ativas: ${c.pregnantTotal} (Habitual: ${c.pregnantHabitual}, Alto risco: ${c.pregnantHighRisk})\n`;
+        currentContext += `- Pacientes crônicos: ${c.chronicTotal} (Hipertensos: ${c.hipertensos}, Diabéticos: ${c.diabeticos})\n`;
+        currentContext += `- Idosos (60+): ${c.elderlyTotal}\n`;
+        currentContext += `- Mulheres cadastradas: ${c.womenTotal}\n\n`;
     }
 
-    if (intent === 'module') {
-        const slug = detectModuleSlug(userMessage);
-        if (slug) {
-            currentContext += `Detalhes de pacientes específicos deste módulo solicitados:\n${getModuleSummary(slug)}\n`;
+    // Busca lista de pacientes se usuário perguntar sobre módulo específico
+    const slug = detectModuleSlug(userMessage);
+    if (slug || intent === 'module') {
+        const moduleSlug = slug || detectModuleSlug(userMessage) || 'gestante';
+        const patientSearch = detectPatientSearch(userMessage);
+        const patients = await fetchPatientList(moduleSlug, patientSearch || undefined);
+        if (patients && patients.length > 0) {
+            currentContext += `## Pacientes do módulo "${moduleSlug}" cadastrados:\n`;
+            patients.slice(0, 20).forEach((p: any) => {
+                const name = p.name || p.nome || 'Sem nome';
+                const age = p.age || p.idade || '';
+                const risk = p.risk_level || p.risco || '';
+                const condition = p.condition || p.condicao || '';
+                currentContext += `- ${name}${age ? `, ${age} anos` : ''}${risk ? `, Risco: ${risk}` : ''}${condition ? `, Condição: ${condition}` : ''}\n`;
+            });
+            if (patients.length > 20) {
+                currentContext += `... e mais ${patients.length - 20} pacientes.\n`;
+            }
+            currentContext += '\n';
         }
     }
 
-    if (intent === 'pending') {
-        currentContext += `Pendências Críticas p/ Hoje: ${getPendingSummary(false).join(', ')}\n`;
+    // Busca por nome específico de paciente em todos os módulos
+    const patientName = detectPatientSearch(userMessage);
+    if (patientName && !slug) {
+        currentContext += `## Busca por paciente: "${patientName}"\n`;
+        const modules = ['gestante', 'crianca', 'cronicos', 'mulher', 'idosos'];
+        for (const mod of modules) {
+            const found = await fetchPatientList(mod, patientName);
+            if (found && found.length > 0) {
+                currentContext += `Encontrado em ${mod}:\n`;
+                found.forEach((p: any) => {
+                    const age = p.age || p.idade || '';
+                    const risk = p.risk_level || '';
+                    const condition = p.condition || '';
+                    currentContext += `- ${p.name || p.nome}${age ? `, ${age} anos` : ''}${risk ? `, Risco: ${risk}` : ''}${condition ? `, Condição: ${condition}` : ''}\n`;
+                });
+            }
+        }
+        currentContext += '\n';
     }
 
-    // Primeiro tentamos achar protocolos no guia para o assunto
+    if (intent === 'pending') {
+        currentContext += `## Pendências Críticas p/ Hoje:\n${getPendingSummary(false).join('\n')}\n\n`;
+    }
+
+    // Busca protocolos no guia para enriquecer a resposta clínica
     const results = searchContent(userMessage, 3);
     const sources = formatGuideResult(results);
 
     if (results.length > 0) {
-        currentContext += `\n\nProtocolos relevantes encontrados no guia:\n${results.map(r => `[Título: ${r.protocol.title}]\n${r.snippet}`).join('\n\n')}`;
+        currentContext += `## Protocolos relevantes no guia:\n${results.map(r => `[${r.protocol.title}]: ${r.snippet}`).join('\n\n')}\n`;
     }
 
     try {
@@ -181,11 +248,9 @@ export async function getAssistantResponse(
 
         if (!response.ok) throw new Error('API Error');
 
-        // Simples leitura não-streamada para resposta rápida (o endpoint suporta streamText, 
-        // mas como já tínhamos um ChatDrawer por turnos, vamos ler todo o texto por aqui)
         const textResponse = await response.text();
 
-        // extraindo texto puro do formato streamText da SDK AI ("0:Este é o texto")
+        // Extrai texto puro do formato streamText da SDK AI ("0:Este é o texto")
         const cleanContent = textResponse
             .split('\n')
             .filter(line => line.startsWith('0:'))
@@ -203,7 +268,6 @@ export async function getAssistantResponse(
             timestamp: new Date(),
         };
     } catch (e) {
-        // Em caso de erro (offline/falha de API), faz o fallback clássico local
         console.error("DeepSeek API failed, falling back to local guide search...");
 
         if (results.length === 0) {
@@ -213,7 +277,7 @@ export async function getAssistantResponse(
                 : '';
             return {
                 role: 'assistant',
-                content: "Hmm, parece que estou com dificuldades de me conectar aos meus servidores de IA no momento. 😔 " + txt.assistant.notFound + hint,
+                content: "Hmm, estou com dificuldades de conectar ao servidor de IA no momento. 😔 " + txt.assistant.notFound + hint,
                 timestamp: new Date(),
             };
         }
@@ -226,3 +290,5 @@ export async function getAssistantResponse(
         };
     }
 }
+
+
