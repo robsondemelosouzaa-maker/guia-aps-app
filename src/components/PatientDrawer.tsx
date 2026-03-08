@@ -229,7 +229,8 @@ export function PatientDrawer({
     // Visible fields
     const formFields = Object.keys(form).filter(k =>
         !config.hiddenFields.includes(k) &&
-        k !== 'observations' && k !== 'autocuidado' && k !== 'medications'
+        k !== 'observations' && k !== 'autocuidado' && k !== 'medications' &&
+        k !== 'alert' && !k.startsWith('consulta_')
     );
 
     const phone = String(form[config.phoneField] ?? '');
@@ -359,9 +360,48 @@ export function PatientDrawer({
                         </div>
                     )}
 
-                    {/* Tab: Observações + Autocuidado */}
                     {tab === 'observacoes' && (
                         <div className="space-y-5">
+                            {/* ⚠️ Alerta do Paciente */}
+                            <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 rounded-2xl px-4 py-3">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <AlertTriangle size={14} className="text-red-500" />
+                                    <span className="text-xs font-black text-red-700 dark:text-red-300 uppercase tracking-widest">Alerta do Paciente</span>
+                                </div>
+                                <textarea
+                                    value={String(form.alert ?? '')}
+                                    onChange={e => setField('alert', e.target.value)}
+                                    placeholder="Registre aqui alertas importantes sobre este paciente..."
+                                    rows={2}
+                                    className="w-full bg-white dark:bg-slate-900 border border-red-100 dark:border-red-800 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-red-400 resize-y"
+                                />
+                            </div>
+
+                            {/* Consultas Anuais (só para crônicos) */}
+                            {moduleSlug === 'cronicos' && (
+                                <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-2xl px-4 py-3">
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className="text-xs font-black text-blue-700 dark:text-blue-300 uppercase tracking-widest">Consultas Anuais</span>
+                                        <span className="text-xs font-black px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                                            {[form.consulta_1, form.consulta_2, form.consulta_3, form.consulta_4].filter(Boolean).length}/4
+                                        </span>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-3">
+                                        {[1, 2, 3, 4].map(n => (
+                                            <div key={n}>
+                                                <label className="text-[10px] font-bold text-blue-500 uppercase tracking-widest">{n}ª Consulta</label>
+                                                <input
+                                                    type="date"
+                                                    value={String(form[`consulta_${n}`] ?? '')}
+                                                    onChange={e => setField(`consulta_${n}`, e.target.value)}
+                                                    className="w-full mt-1 h-9 bg-white dark:bg-slate-900 border border-blue-100 dark:border-blue-800 rounded-xl px-2 text-sm focus:outline-none focus:border-blue-400"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+
                             <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-100 dark:border-amber-900 rounded-2xl px-4 py-3">
                                 <div className="flex items-center gap-2 mb-1">
                                     <AlertTriangle size={14} className="text-amber-500" />

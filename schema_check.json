@@ -1,0 +1,86 @@
+{
+  "patients": {
+    "count": 189,
+    "cols": [
+      "id",
+      "user_id",
+      "name",
+      "age",
+      "gender",
+      "birth_date",
+      "phone",
+      "address",
+      "acs_area",
+      "cpf",
+      "risk_level",
+      "risk_reason",
+      "is_pregnant",
+      "dum",
+      "dpp",
+      "is_chronic",
+      "chronic_condition",
+      "is_child",
+      "clinical_data",
+      "created_at",
+      "observations",
+      "autocuidado",
+      "medications"
+    ]
+  },
+  "pregnant_women": {
+    "count": 46,
+    "cols": [
+      "id",
+      "user_id",
+      "name",
+      "age",
+      "birth_date",
+      "phone",
+      "risk_level",
+      "risk_reason",
+      "dum",
+      "created_at",
+      "clinical_data",
+      "dpp",
+      "is_pregnant",
+      "observations",
+      "autocuidado",
+      "medications"
+    ]
+  },
+  "children": {
+    "count": 50,
+    "cols": [
+      "id",
+      "user_id",
+      "name",
+      "birth_date",
+      "gender",
+      "risk_level",
+      "guardian_name",
+      "guardian_phone",
+      "observations",
+      "created_at"
+    ]
+  },
+  "chronic_patients": {
+    "count": 28,
+    "cols": [
+      "id",
+      "user_id",
+      "name",
+      "age",
+      "phone",
+      "condition",
+      "risk_level",
+      "last_bp_check",
+      "last_hba1c",
+      "last_hba1c_date",
+      "insulin_expiry_date",
+      "medications",
+      "observations",
+      "clinical_data",
+      "created_at"
+    ]
+  }
+}

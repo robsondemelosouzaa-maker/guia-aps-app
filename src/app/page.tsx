@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import AppShell from '@/components/AppShell';
-import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Baby, Heart, Activity as ActivityIcon } from 'lucide-react';
+import { Users, ClipboardList, Activity, ArrowUpRight, TrendingUp, Baby, Heart, Activity as ActivityIcon, AlertTriangle } from 'lucide-react';
 
 const patients = [
     { id: '1', name: 'João da Silva', info: 'Hipertensivo · CD atrasada · PA 165/100', status: 'Critico', color: '#BFEFD0', href: '/pacientes/cronicos' },
@@ -46,6 +46,7 @@ export default function DashboardPage() {
     const [userName, setUserName] = useState<string>('Enfermeiro(a)');
     const [counts, setCounts] = useState<Counts | null>(null);
     const [loadingCounts, setLoadingCounts] = useState(true);
+    const [alerts, setAlerts] = useState<{ id: string; name: string; alert: string; source: string }[]>([]);
 
     useEffect(() => {
         // Obter nome
@@ -76,6 +77,17 @@ export default function DashboardPage() {
         }
 
         fetchExactCounts();
+
+        async function fetchAlerts() {
+            try {
+                const res = await fetch('/api/alerts');
+                if (res.ok) {
+                    const data = await res.json();
+                    setAlerts(data.alerts ?? []);
+                }
+            } catch (e) { console.error('Failed to fetch alerts:', e); }
+        }
+        fetchAlerts();
     }, []);
 
     const metrics = [
@@ -119,6 +131,35 @@ export default function DashboardPage() {
                     ))}
                 </div>
             </section>
+
+            {/* Alerts Block */}
+            {alerts.length > 0 && (
+                <section className="space-y-3 mb-8">
+                    <div className="flex items-center gap-2 pl-1 mb-1">
+                        <AlertTriangle size={14} className="text-red-500" />
+                        <h2 className="text-sm font-black text-red-500 uppercase tracking-widest">Alertas Ativos ({alerts.length})</h2>
+                    </div>
+                    <div className="space-y-2">
+                        {alerts.slice(0, 8).map(a => (
+                            <div key={`${a.source}-${a.id}`} className="bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900 p-3 rounded-2xl flex items-start gap-3">
+                                <div className="w-8 h-8 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
+                                    <AlertTriangle size={14} className="text-red-500" />
+                                </div>
+                                <div className="min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <p className="text-sm font-bold text-red-700 dark:text-red-300 truncate">{a.name}</p>
+                                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-red-100 dark:bg-red-900/40 text-red-500 shrink-0">{a.source}</span>
+                                    </div>
+                                    <p className="text-xs text-red-600/80 dark:text-red-400/80 mt-0.5 line-clamp-2">{a.alert}</p>
+                                </div>
+                            </div>
+                        ))}
+                        {alerts.length > 8 && (
+                            <p className="text-xs text-red-400 font-bold text-center">+ {alerts.length - 8} outros alertas</p>
+                        )}
+                    </div>
+                </section>
+            )}
 
             {/* Quick Access */}
             <section className="space-y-3 mb-8">
@@ -170,6 +211,6 @@ export default function DashboardPage() {
                     ))}
                 </div>
             </section>
-        </AppShell>
+        </AppShell >
     );
 }

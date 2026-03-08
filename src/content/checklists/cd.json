@@ -52,6 +52,10 @@
             {
                 "key": "orientar_pais_1m",
                 "label": "Orientar pais sobre sono, posição e banho"
+            },
+            {
+                "key": "vitamina_d_30d",
+                "label": "Vitamina D (suplementação a partir dos 30 dias)"
             }
         ]
     },
@@ -146,6 +150,14 @@
             {
                 "key": "dnpm_6m",
                 "label": "DNPM: senta com apoio, balbúrdia"
+            },
+            {
+                "key": "sulfato_ferroso_6m",
+                "label": "Sulfato ferroso (início da suplementação)"
+            },
+            {
+                "key": "vitamina_a_100mil_6m",
+                "label": "Vitamina A 100.000 UI (1ª dose)"
             }
         ]
     },
@@ -194,6 +206,10 @@
             {
                 "key": "dnpm_12m",
                 "label": "DNPM: anda com apoio, diz 2 palavras"
+            },
+            {
+                "key": "vitamina_a_200mil_12m",
+                "label": "Vitamina A 200.000 UI"
             }
         ]
     },
@@ -234,6 +250,10 @@
             {
                 "key": "dnpm_18m",
                 "label": "DNPM: fala 10 palavras, sobe escada"
+            },
+            {
+                "key": "vitamina_a_200mil_18m",
+                "label": "Vitamina A 200.000 UI"
             }
         ]
     },
@@ -252,6 +272,10 @@
             {
                 "key": "dentista",
                 "label": "Encaminhar para odontologia"
+            },
+            {
+                "key": "vitamina_a_200mil_24m",
+                "label": "Vitamina A 200.000 UI"
             }
         ]
     },
