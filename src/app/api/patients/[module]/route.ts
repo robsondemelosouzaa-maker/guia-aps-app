@@ -5,7 +5,6 @@ import modulesData from '@/data/modules.json';
 
 export const dynamic = 'force-dynamic';
 
-// Service client — bypassa RLS
 function svc() {
     return createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -26,7 +25,7 @@ export async function GET(
     const search = url.searchParams.get('search') ?? '';
     const risk = url.searchParams.get('risk_level') ?? '';
 
-    // ── FALLBACK LOCAL (Modo Demonstração) se não houver Supabase configurado ──
+    // ── FALLBACK LOCAL ──
     if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
         const mod = (modulesData as any[]).find(m => m.slug === moduleSlug);
         let pts = mod?.patients || [];
@@ -35,19 +34,16 @@ export async function GET(
     }
 
     const supabase = svc();
-    // TODOS os módulos agora consultam a tabela `patients`
     let query = supabase
-        .from(config.tableName)  // sempre 'patients'
+        .from(config.tableName)
         .select('*')
         .order(config.defaultOrder.column, { ascending: config.defaultOrder.ascending });
 
-    // Aplica filtros do módulo (baseFilter)
+    // Filtros especiais por módulo
     if (moduleSlug === 'idosos') {
-        // Idosos: age >= 60 — usa filtro especial (não vai em baseFilter)
         query = query.gte('age', 60);
     } else if (config.baseFilter) {
         for (const [k, v] of Object.entries(config.baseFilter)) {
-            // Passamos o valor nativo (boolean, string) — sem converter para String()
             query = (query as any).eq(k, v);
         }
     }
@@ -77,7 +73,7 @@ export async function POST(
 
     const supabase = svc();
     const { data, error } = await supabase
-        .from(config.tableName)  // sempre 'patients'
+        .from(config.tableName)
         .insert(payload)
         .select()
         .single();

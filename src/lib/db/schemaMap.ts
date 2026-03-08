@@ -1,6 +1,12 @@
 // Mapeamento central: moduleSlug → tabela Supabase + aliases de campo
-// UNIFICADO: todos os módulos consultam a tabela `patients` com filtros distintos
-// Atualizado em 2026-03-08 após migração de unificação do schema.
+// CORRIGIDO 2026-03-08: baseado na inspeção real do schema.
+// Cada módulo aponta para a tabela onde os dados REALMENTE existem.
+//
+// TABELAS REAIS:
+//   patients         → 189 rows (geral, mulher, idosos)
+//   pregnant_women   → 46 rows  (gestantes + puerpério)
+//   children         → 50 rows  (crianças CD)
+//   chronic_patients → 28 rows  (crônicos HAS/DM)
 
 export type ModuleSlug =
     | 'gestante'
@@ -25,7 +31,7 @@ export interface ModuleConfig {
     readonlyFields: string[];
     /** Ordenação padrão */
     defaultOrder: { column: string; ascending: boolean };
-    /** Tem campo baby_born (is_pregnant / is_puerperio) */
+    /** Tem botão "Já teve o bebê" */
     hasBabyBorn?: boolean;
     /** Checklists disponíveis */
     hasChecklist?: boolean;
@@ -33,79 +39,66 @@ export interface ModuleConfig {
     createDefaults?: Record<string, unknown>;
 }
 
-// Campos técnicos que nunca aparecem no formulário de edição
-const COMMON_HIDDEN = [
-    'id', 'user_id', 'created_at',
-    'is_pregnant', 'is_puerperio', 'is_chronic', 'is_child',
-    'clinical_data',
-];
-
 export const MODULES: Record<ModuleSlug, ModuleConfig> = {
-    // ── Gestante: mulheres com is_pregnant = true ────────────────────────
+    // ── Gestantes: pregnant_women WHERE is_pregnant = true ────────────
     gestante: {
-        tableName: 'patients',
+        tableName: 'pregnant_women',
         displayName: 'Gestantes',
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
         baseFilter: { is_pregnant: true },
-        hiddenFields: [...COMMON_HIDDEN, 'condition', 'last_bp_check', 'last_hba1c',
-            'last_hba1c_date', 'insulin_expiry_date', 'guardian_name', 'guardian_phone'],
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data', 'is_pregnant'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
         hasBabyBorn: true,
         hasChecklist: true,
-        createDefaults: { is_pregnant: true, is_puerperio: false, is_chronic: false, is_child: false, gender: 'Feminino' },
+        createDefaults: { is_pregnant: true },
     },
 
-    // ── Puerpério: mulheres com is_puerperio = true ──────────────────────
+    // ── Puerpério: pregnant_women WHERE is_pregnant = false ───────────
     puerperio: {
-        tableName: 'patients',
+        tableName: 'pregnant_women',
         displayName: 'Puerpério',
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
-        baseFilter: { is_puerperio: true },
-        hiddenFields: [...COMMON_HIDDEN, 'condition', 'last_bp_check', 'last_hba1c',
-            'last_hba1c_date', 'insulin_expiry_date', 'guardian_name', 'guardian_phone'],
+        baseFilter: { is_pregnant: false },
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data', 'is_pregnant'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
         hasBabyBorn: true,
         hasChecklist: true,
-        createDefaults: { is_puerperio: true, is_pregnant: false, is_chronic: false, is_child: false, gender: 'Feminino' },
     },
 
-    // ── Crianças (CD): is_child = true ───────────────────────────────────
+    // ── Crianças (CD): children ──────────────────────────────────────
     crianca: {
-        tableName: 'patients',
+        tableName: 'children',
         displayName: 'Crianças (CD)',
         phoneField: 'guardian_phone',
         nameField: 'name',
         riskField: 'risk_level',
-        baseFilter: { is_child: true },
-        hiddenFields: [...COMMON_HIDDEN, 'address', 'acs_area', 'cpf', 'dum', 'dpp',
-            'condition', 'last_bp_check', 'last_hba1c', 'last_hba1c_date', 'insulin_expiry_date'],
+        hiddenFields: ['id', 'user_id', 'created_at'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'birth_date', ascending: true },
         hasChecklist: true,
-        createDefaults: { is_child: true, is_pregnant: false, is_chronic: false, is_puerperio: false },
     },
 
-    // ── Crônicos: is_chronic = true ───────────────────────────────────────
+    // ── Crônicos (HAS/DM): chronic_patients ──────────────────────────
     cronicos: {
-        tableName: 'patients',
+        tableName: 'chronic_patients',
         displayName: 'Crônicos (HAS/DM)',
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
-        baseFilter: { is_chronic: true },
-        hiddenFields: [...COMMON_HIDDEN, 'dum', 'dpp', 'guardian_name', 'guardian_phone'],
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
-        createDefaults: { is_chronic: true, is_pregnant: false, is_child: false, is_puerperio: false },
     },
 
-    // ── Saúde da Mulher: gender = 'Feminino' (inclui gestantes automaticamente) ──
+    // ── Saúde da Mulher: patients WHERE gender = 'Feminino' ──────────
+    // Inclui gestantes que TAMBÉM existam na tabela patients,
+    // mas não puxa de pregnant_women (tabela separada).
     mulher: {
         tableName: 'patients',
         displayName: 'Saúde da Mulher',
@@ -113,33 +106,32 @@ export const MODULES: Record<ModuleSlug, ModuleConfig> = {
         nameField: 'name',
         riskField: 'risk_level',
         baseFilter: { gender: 'Feminino' },
-        hiddenFields: [...COMMON_HIDDEN, 'guardian_name', 'guardian_phone'],
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data', 'is_pregnant', 'is_chronic', 'is_child'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
-        createDefaults: { gender: 'Feminino', is_pregnant: false, is_chronic: false, is_child: false, is_puerperio: false },
+        createDefaults: { gender: 'Feminino' },
     },
 
-    // ── Idosos: age >= 60 (filtro especial na API, não no baseFilter) ─────
+    // ── Idosos: patients WHERE age >= 60 ─────────────────────────────
     idosos: {
         tableName: 'patients',
         displayName: 'Idosos',
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
-        hiddenFields: [...COMMON_HIDDEN, 'dum', 'dpp', 'guardian_name', 'guardian_phone'],
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data', 'is_pregnant', 'is_chronic', 'is_child'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
-        createDefaults: { is_pregnant: false, is_chronic: false, is_child: false, is_puerperio: false },
     },
 
-    // ── Geral: todos os pacientes ─────────────────────────────────────────
+    // ── Geral: patients (todos) ──────────────────────────────────────
     geral: {
         tableName: 'patients',
         displayName: 'Pacientes Gerais',
         phoneField: 'phone',
         nameField: 'name',
         riskField: 'risk_level',
-        hiddenFields: [...COMMON_HIDDEN],
+        hiddenFields: ['id', 'user_id', 'created_at', 'clinical_data'],
         readonlyFields: ['id', 'user_id', 'created_at'],
         defaultOrder: { column: 'name', ascending: true },
     },
