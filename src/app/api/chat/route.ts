@@ -1,12 +1,12 @@
 import { streamText } from 'ai';
-import { createDeepSeek } from '@ai-sdk/deepseek';
+import { createOpenAI } from '@ai-sdk/openai';
 
 // Permitir tempo de execução maior e rodar na edge
 export const maxDuration = 60;
 export const runtime = 'edge';
 
-const deepseek = createDeepSeek({
-    apiKey: process.env.DEEPSEEK_API_KEY || '',
+const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export async function POST(req: Request) {
@@ -35,7 +35,7 @@ ${contextData ?? 'Dados de pacientes não disponíveis no momento.'}
 Use essas informações sempre que o usuário perguntar sobre pacientes, estatísticas da unidade ou situação dos programas (pré-natal, puericultura, hiperdia, etc.).`;
 
     const result = streamText({
-        model: deepseek('deepseek-chat'),
+        model: openai('gpt-4o-mini'),
         system: systemPrompt,
         messages,
     });
