@@ -43,8 +43,12 @@ export async function GET() {
         { count: hipertensos },
         { count: diabeticos },
         { count: chronicRisk },
-        { count: womenTotal },
-        { count: elderlyTotal },
+        // Mulheres — 3 tabelas separadas (sem duplicação, pois são registros distintos)
+        { count: womenPatients },
+        { count: womenPregnant },
+        // Idosos — 2 tabelas
+        { count: elderlyPatients },
+        { count: elderlyChronic },
     ] = await Promise.all([
         // Gestantes — tabela pregnant_women
         supabase.from('pregnant_women').select('*', { count: 'exact', head: true }).eq('is_pregnant', true),
@@ -58,10 +62,18 @@ export async function GET() {
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%HAS%'),
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).ilike('condition', '%DM%'),
         supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).neq('risk_level', 'Habitual'),
-        // Mulher e Idosos — tabela patients
+        // Mulheres — patients femininas
         supabase.from('patients').select('*', { count: 'exact', head: true }).eq('gender', 'Feminino'),
+        // Mulheres — pregnant_women (todas são mulheres)
+        supabase.from('pregnant_women').select('*', { count: 'exact', head: true }),
+        // Idosos — patients com age >= 60
         supabase.from('patients').select('*', { count: 'exact', head: true }).gte('age', 60),
+        // Idosos — chronic_patients com age >= 60
+        supabase.from('chronic_patients').select('*', { count: 'exact', head: true }).gte('age', 60),
     ]);
+
+    const womenTotal = (womenPatients ?? 0) + (womenPregnant ?? 0);
+    const elderlyTotal = (elderlyPatients ?? 0) + (elderlyChronic ?? 0);
 
     return NextResponse.json({
         pregnantTotal: pregnantTotal ?? 0,

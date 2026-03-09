@@ -35,12 +35,14 @@ function NewPatientModal({ moduleSlug, open, onClose, onCreated }: {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [risk, setRisk] = useState('Habitual');
+    const [condition, setCondition] = useState('');
     const [loading, setLoading] = useState(false);
     const [err, setErr] = useState('');
 
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!name.trim()) { setErr('Nome é obrigatório.'); return; }
+        if (moduleSlug === 'cronicos' && !condition) { setErr('Condição crônica é obrigatória.'); return; }
         setLoading(true); setErr('');
         try {
             const mod = MODULES[moduleSlug];
@@ -51,10 +53,14 @@ function NewPatientModal({ moduleSlug, open, onClose, onCreated }: {
                 // Defaults do módulo (is_pregnant, is_child, gender, etc)
                 ...(mod.createDefaults ?? {}),
             };
+            // Adicionar condition para crônicos
+            if (moduleSlug === 'cronicos' && condition) {
+                payload.condition = condition;
+            }
             await createPatient(moduleSlug, payload);
             onCreated();
             onClose();
-            setName(''); setPhone(''); setRisk('Habitual');
+            setName(''); setPhone(''); setRisk('Habitual'); setCondition('');
         } catch (e: unknown) {
             setErr((e as Error).message);
         } finally {
@@ -87,6 +93,18 @@ function NewPatientModal({ moduleSlug, open, onClose, onCreated }: {
                                 {RISK_LEVELS.map(r => <option key={r}>{r}</option>)}
                             </select>
                         </div>
+                        {moduleSlug === 'cronicos' && (
+                            <div>
+                                <label className="text-xs font-bold text-slate-500 uppercase tracking-widest">Condição Crônica *</label>
+                                <select value={condition} onChange={e => setCondition(e.target.value)}
+                                    className="w-full mt-1 h-11 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 text-sm focus:outline-none focus:border-emerald-400">
+                                    <option value="">Selecione a condição...</option>
+                                    <option value="HAS">HAS (Hipertensão)</option>
+                                    <option value="DM">DM (Diabetes)</option>
+                                    <option value="HAS + DM">HAS + DM</option>
+                                </select>
+                            </div>
+                        )}
                     </div>
                     {err && <p className="text-red-500 text-xs font-semibold">{err}</p>}
                     <div className="flex gap-2 pt-2">
