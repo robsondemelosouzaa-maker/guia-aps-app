@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
     Home, Grid, Search, BookOpen, Settings, Bell, Moon, Sun,
-    Menu, X, Baby, Heart, Stethoscope, User, Users, MessageCircle, Scale
+    Menu, X, Baby, Heart, Stethoscope, User, Users, MessageCircle, Scale, Pill, BookMarked
 } from 'lucide-react';
 import { ChatDrawer, AssistantFAB } from './ChatDrawer';
 import { txt } from '@/i18n/ptBR';
@@ -14,7 +14,9 @@ import { createClient } from '@/lib/supabase/client';
 // ── Main nav items ────────────────────────────────────────────
 const mainNav = [
     { href: '/', icon: Home, label: txt.nav.home },
+    { href: '/prescricoes', icon: Pill, label: 'Prescrições' },
     { href: '/ciap', icon: Search, label: txt.nav.ciap },
+    { href: '/referencias', icon: BookMarked, label: 'Referências' },
     { href: '/normas', icon: BookOpen, label: txt.nav.norms },
     { href: '/busca', icon: Search, label: 'Buscar no Guia' },
 ];

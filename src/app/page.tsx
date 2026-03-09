@@ -19,6 +19,7 @@ const quickAccess = [
     { label: 'Idoso', icon: '👵', color: '#FFE7A3', href: '/pacientes/idosos' },
     { label: 'Crônicos', icon: '❤️', color: '#BFEFD0', href: '/pacientes/cronicos' },
     { label: 'S. da Mulher', icon: '🌸', color: '#D8B4E2', href: '/pacientes/mulher' },
+    { label: 'Prescrições', icon: '💊', color: '#86EFAC', href: '/prescricoes' },
 ];
 
 const statusStyle: Record<string, string> = {
