@@ -200,6 +200,27 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
                             const phone = String(p[config.phoneField] ?? '');
                             const risk = String(p[config.riskField] ?? 'Habitual');
                             const waLink = phone ? makeWALink(phone) : null;
+                            const status = String(p.status ?? '');
+                            const dum = p.dum ? String(p.dum) : '';
+                            const dpp = p.dpp ? String(p.dpp) : '';
+                            const isGestanteModule = moduleSlug === 'gestante' || moduleSlug === 'puerperio';
+                            const statusColors: Record<string, string> = {
+                                gestante: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300',
+                                deu_a_luz: 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300',
+                                abortou: 'bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300',
+                                finalizada: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400',
+                            };
+                            const statusLabels: Record<string, string> = {
+                                gestante: '🤰 Gestante',
+                                deu_a_luz: '🍼 Deu à luz',
+                                abortou: '⚠️ Abortou',
+                                finalizada: '✅ Finalizada',
+                            };
+                            const fmtDate = (d: string) => {
+                                if (!d) return '';
+                                const m = d.match(/^(\d{4})-(\d{2})-(\d{2})/);
+                                return m ? `${m[3]}/${m[2]}/${m[1]}` : d;
+                            };
                             return (
                                 <button key={String(p.id)} onClick={() => setSelected(p)}
                                     className="w-full flex items-center gap-4 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 px-4 py-3.5 rounded-2xl hover:border-emerald-300 dark:hover:border-emerald-700 hover:shadow-md transition-all group text-left">
@@ -207,13 +228,25 @@ export function PatientListPage({ moduleSlug }: { moduleSlug: ModuleSlug }) {
                                         {name[0]?.toUpperCase() ?? '?'}
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-2 flex-wrap">
                                             <p className="font-bold text-sm group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors truncate">{name}</p>
-                                            {config.hasBabyBorn && p.is_pregnant === false && (
+                                            {isGestanteModule && status && (
+                                                <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold shrink-0 ${statusColors[status] || 'bg-slate-100 text-slate-500'}`}>
+                                                    {statusLabels[status] || status}
+                                                </span>
+                                            )}
+                                            {!isGestanteModule && config.hasBabyBorn && p.is_pregnant === false && (
                                                 <span className="text-[10px] bg-pink-100 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400 px-1.5 py-0.5 rounded-full font-bold shrink-0">🍼 Pós-parto</span>
                                             )}
                                         </div>
                                         {phone && <p className="text-xs text-slate-400 font-medium">{phone}</p>}
+                                        {isGestanteModule && (dum || dpp) && (
+                                            <p className="text-[10px] text-slate-400 mt-0.5 font-medium">
+                                                {dum && <span>DUM: {fmtDate(dum)}</span>}
+                                                {dum && dpp && <span> · </span>}
+                                                {dpp && <span>DPP: {fmtDate(dpp)}</span>}
+                                            </p>
+                                        )}
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
                                         <span className={`text-[10px] px-2 py-0.5 rounded-full font-black ${getRiskColor(risk)}`}>{risk}</span>
